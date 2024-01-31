@@ -13,6 +13,9 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    currency = db.Column(db.String, nullable=False, default='USD ($)')
+    yearJoined = db.Column(db.String, nullable=False)
+    profile_pic_url = db.Column(db.String, nullable=False, default='https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png')
 
     @property
     def password(self):
@@ -29,5 +32,8 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'currency': self.currency,
+            'yearJoined': self.yearJoined,
+            'profile_pic_url': self.profile_pic_url
         }
