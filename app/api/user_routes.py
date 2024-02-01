@@ -1,6 +1,11 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import User
+from app.models import User, db
+from app.models.expense import Expense
+from app.models.group import Group
+from app.forms.expense_form import ExpenseForm
+from app.forms.group_form import GroupForm
+from app.api.aws_images import upload_img_to_s3, remove_img_from_s3, get_unique_filename_img
 
 user_routes = Blueprint('users', __name__)
 
@@ -23,3 +28,47 @@ def user(id):
     """
     user = User.query.get(id)
     return user.to_dict()
+
+@user_routes.route('/<int:id>/groups')
+def allGroups(id):
+    userGroups = [group.to_dict() for group in Group.query.filter(Group.organizer_id == id)]
+    return userGroups
+
+@user_routes.route('/<int:id>/groups', methods=['POST'])
+def createGroup(id):
+    form = GroupForm()
+    form.group_pic_url.data.filename = get_unique_filename_img(form.group_pic_url.data.filename)
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        data = form.data
+        newGroup = Group(
+            name=data.name,
+            organizer_id=id,
+            group_pic_url=upload_img_to_s3(form.song_cover_url.data).get("url")
+        )
+        db.session.add(data)
+        db.session.commit()
+        return newGroup.to_dict()
+    return "Bad Data"
+
+@user_routes.route('/<int:id>/owe')
+def allExpenses(id):
+    expenses = [expense.to_dict() for expense in Expense.query.filter(Expense.payer_id == id).all()]
+    return expenses
+
+@user_routes.route('/<int:id>/expense/new', methods=['POST'])
+def postExpense():
+    form = ExpenseForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit:
+        data = form.data
+        newExpense = Expense(
+            category=data['category'],
+            description=data['description'],
+            payer_id=data['payer_id'],
+            group_id=data['group_id']
+        )
+        db.session.add(newExpense)
+        db.session.commit()
+        return newExpense.to_dict()
+    return "Bad Data"

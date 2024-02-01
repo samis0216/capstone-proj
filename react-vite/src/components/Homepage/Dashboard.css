@@ -1,0 +1,33 @@
+.homepage-container {
+    margin: 30px;
+    display: flex;
+    flex-direction: column;
+}
+.homepage {
+    display: flex;
+}
+
+.left-bar {
+    width: 33%;
+    border: black 2px solid;
+}
+
+.middle-content {
+    width: 33%;
+    border: green solid 2px;
+    height: 600px
+}
+
+.right-content {
+    width: 33%;
+    border: red solid 2px;
+}
+
+.group-tile {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    padding: 5px;
+    border: black solid 1px;
+
+}
