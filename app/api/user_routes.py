@@ -34,27 +34,38 @@ def allGroups(id):
     userGroups = [group.to_dict() for group in Group.query.filter(Group.organizer_id == id)]
     return userGroups
 
+@user_routes.route('/<int:id>/groups/<int:groupId>')
+def oneGroup(id, groupId):
+    userGroup = Group.query.get(groupId).to_dict()
+    return userGroup
+
 @user_routes.route('/<int:id>/groups', methods=['POST'])
 def createGroup(id):
     form = GroupForm()
     form.group_pic_url.data.filename = get_unique_filename_img(form.group_pic_url.data.filename)
     form['csrf_token'].data = request.cookies['csrf_token']
+    print(form.data)
     if form.validate_on_submit():
         data = form.data
         newGroup = Group(
-            name=data.name,
+            name=data['name'],
             organizer_id=id,
-            group_pic_url=upload_img_to_s3(form.song_cover_url.data).get("url")
+            group_pic_url=upload_img_to_s3(form.group_pic_url.data).get("url")
         )
-        db.session.add(data)
+        db.session.add(newGroup)
         db.session.commit()
         return newGroup.to_dict()
     return "Bad Data"
 
-@user_routes.route('/<int:id>/owe')
-def allExpenses(id):
-    expenses = [expense.to_dict() for expense in Expense.query.filter(Expense.payer_id == id).all()]
-    return expenses
+@user_routes.route('/<int:id>/groups/<int:groupId>', methods=['DELETE'])
+def deleteGroup(id, groupId):
+    group = Group.query.get(groupId)
+    db.session.delete(group)
+    db.session.commit()
+    return {
+        'id': groupId,
+        'status': 'Successfully Deleted'
+        }
 
 @user_routes.route('/<int:id>/expense/new', methods=['POST'])
 def postExpense():

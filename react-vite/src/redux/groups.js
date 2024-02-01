@@ -1,10 +1,33 @@
 const LOAD_GROUPS = 'groups/loadGroups'
+const LOAD_ONE_GROUP = 'groups/loadOneGroup'
 const CREATE_GROUP = 'groups/createGroup'
+const DELETE_GROUP = 'groups/deleteGroup'
 
 const loadUserGroups = (groups) => {
     return {
         type: LOAD_GROUPS,
         groups
+    }
+}
+
+const loadOneGroup = (group) => {
+    return {
+        type: LOAD_ONE_GROUP,
+        group
+    }
+}
+
+const createGroup = (group) => {
+    return {
+        type: CREATE_GROUP,
+        group
+    }
+}
+
+const deleteGroup = (payload) => {
+    return {
+        type: DELETE_GROUP,
+        payload
     }
 }
 
@@ -18,6 +41,42 @@ export const loadUserGroupsThunk = (userId) => async (dispatch) => {
     }
 }
 
+export const loadOneGroupThunk = (userId, groupId) => async (dispatch) => {
+    const res = await fetch(`/api/users/${userId}/groups/${groupId}`)
+
+    if (res.ok) {
+        const data = await res.json()
+        dispatch(loadOneGroup(data))
+        return data
+    }
+}
+
+export const createGroupThunk = (userId, group) => async (dispatch) => {
+    const res = await fetch(`/api/users/${userId}/groups`, {
+        method: 'POST',
+        body: group
+    })
+
+    if (res.ok) {
+        const data = await res.json()
+        dispatch(createGroup(data))
+        return data
+    }
+}
+
+export const deleteGroupThunk = (userId, groupId) => async (dispatch) => {
+    const res = await fetch(`/api/users/${userId}/groups/${groupId}`, {
+        method: 'DELETE',
+        body: groupId
+    })
+
+    if (res.ok) {
+        const data = await res.json()
+        dispatch(deleteGroup(data))
+        return data
+    }
+}
+
 const initialState = {}
 
 const groupsReducer = (state = initialState, action) => {
@@ -27,6 +86,20 @@ const groupsReducer = (state = initialState, action) => {
             action.groups.forEach(group => {
                 newState[group.id] = group
             });
+            return newState
+        }
+        case LOAD_ONE_GROUP: {
+            const newState = {}
+            newState[action.group.id] = action.group
+            return newState
+        }
+        case CREATE_GROUP: {
+            const newState = {...state, [action.group.id]: action.group}
+            return newState
+        }
+        case DELETE_GROUP: {
+            const newState = {...state}
+            delete newState[action.payload.id]
             return newState
         }
         default:

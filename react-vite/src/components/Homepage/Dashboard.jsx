@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, NavLink } from "react-router-dom"
 import { loadUserGroupsThunk } from "../../redux/groups"
 import './Dashboard.css'
+import GroupTile from "../Tiles/GroupTile"
 
 
 export default function Dashboard() {
@@ -30,15 +31,7 @@ export default function Dashboard() {
                 <div className="middle-content">
                     <h2 className="middle-heading">Dashboard</h2>
                     {groupVal.map(group => (
-                        <div className="group-tile">
-                            <div>
-                                <img src={group.group_pic_url} style={{ width: 50 }} alt="" />
-                            </div>
-                            <div>
-                                <p>{group.name}</p>
-                                <p>{group.organizer_id}</p>
-                            </div>
-                        </div>
+                        <GroupTile key={group.id} group={group}/>
                     ))}
                 </div>
                 <div className="right-content">
