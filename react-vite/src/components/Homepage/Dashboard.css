@@ -1,25 +1,38 @@
 .homepage-container {
-    margin: 30px;
+    margin: 0 30 30 30;
     display: flex;
     flex-direction: column;
 }
 .homepage {
     display: flex;
+    justify-content: center;
 }
 
 .left-bar {
-    width: 33%;
+    width: 200px;
     border: black 2px solid;
+}
+
+.left-bar-content {
+    display: flex;
+    flex-direction: column;
 }
 
 .middle-content {
     width: 33%;
     border: green solid 2px;
-    height: 600px
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+.middle-heading {
+    padding: 5px;
+    margin: 10px;
 }
 
 .right-content {
-    width: 33%;
+    width: 200px;
     border: red solid 2px;
 }
 
@@ -29,5 +42,4 @@
     margin: 10px;
     padding: 5px;
     border: black solid 1px;
-
 }
