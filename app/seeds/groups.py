@@ -22,8 +22,8 @@ def seed_groups():
 # it will reset the primary keys for you as well.
 def undo_groups():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.groups RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute(text("DELETE FROM users"))
+        db.session.execute(text("DELETE FROM groups"))
 
     db.session.commit()
