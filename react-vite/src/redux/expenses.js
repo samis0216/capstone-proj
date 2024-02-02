@@ -11,26 +11,26 @@ const loadUserExpenses = (expenses) => {
     }
 }
 
-const loadOneExpense = (expense) => {
-    return {
-        type: LOAD_ONE_EXPENSE,
-        expense
-    }
-}
+// const loadOneExpense = (expense) => {
+//     return {
+//         type: LOAD_ONE_EXPENSE,
+//         expense
+//     }
+// }
 
-const createExpense = (expense) => {
-    return {
-        type: CREATE_EXPENSE,
-        expense
-    }
-}
+// const createExpense = (expense) => {
+//     return {
+//         type: CREATE_EXPENSE,
+//         expense
+//     }
+// }
 
-const deleteExpense = (payload) => {
-    return {
-        type: DELETE_EXPENSE,
-        payload
-    }
-}
+// const deleteExpense = (payload) => {
+//     return {
+//         type: DELETE_EXPENSE,
+//         payload
+//     }
+// }
 
 export const loadUserExpensesThunk = (userId) => async(dispatch) => {
     const res = await fetch(`/api/users/${userId}/expenses`)

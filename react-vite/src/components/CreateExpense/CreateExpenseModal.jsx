@@ -1,19 +1,19 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useModal } from "../../context/Modal";
+// import { useModal } from "../../context/Modal";
 import { createUserExpenseThunk } from "../../redux/expenses";
-import { useNavigate } from "react-router-dom";
-import { loadUserGroupsThunk } from "../../redux/groups";
+// import { useNavigate } from "react-router-dom";
+// import { loadUserGroupsThunk } from "../../redux/groups";
 
 function CreateExpenseModal() {
     const dispatch = useDispatch();
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const [category, setCategory] = useState("");
     const [description, setDescription] = useState("");
     const [amount, setAmount] = useState("");
     const [groupId, setGroupId] = useState("")
-    const [errors, setErrors] = useState({});
-    const { closeModal } = useModal();
+    // const [errors, setErrors] = useState({});
+    // const { closeModal } = useModal();
 
     const user = useSelector(state => state.session.user)
     const userGroups = Object.values(useSelector(state => state.groups))
@@ -23,11 +23,11 @@ function CreateExpenseModal() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        form = new FormData()
+        let form = new FormData()
         form.append('category', category)
         form.append('description', description)
         form.append('amount', amount)
-        form.append('payer_id', payer_id)
+        form.append('payer_id', user.id)
         form.append('group_id', groupId)
 
         dispatch(createUserExpenseThunk(user.id, form))
@@ -53,7 +53,7 @@ function CreateExpenseModal() {
                 <label htmlFor="">Group
                     <select name="" id="" onChange={(e)=> setGroupId(e.target.value)}>
                         {userGroups?.map(group => (
-                            <option value={group.id}>{group.name}</option>
+                            <option key={group.id} value={group.id}>{group.name}</option>
                         ))}
                     </select>
                 </label>
