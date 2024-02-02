@@ -4,6 +4,9 @@ import { useNavigate, NavLink } from "react-router-dom"
 import { loadUserGroupsThunk } from "../../redux/groups"
 import './Dashboard.css'
 import GroupTile from "../Tiles/GroupTile"
+import { loadUserExpensesThunk } from "../../redux/expenses"
+import OpenModalButton from "../OpenModalButton/OpenModalButton"
+import CreateExpenseModal from "../CreateExpense/CreateExpenseModal"
 
 
 export default function Dashboard() {
@@ -11,11 +14,17 @@ export default function Dashboard() {
     const navigate = useNavigate()
     const user = useSelector(state => state.session.user)
     const groups = useSelector(state => state.groups)
-    const groupVal = Object.values(groups)
+    // const groupVal = Object.values(groups)
+    const expenses = Object.values(useSelector(state => state.expenses))
+
 
     useEffect(() => {
-        dispatch(loadUserGroupsThunk(user.id))
+        // dispatch(loadUserGroupsThunk(user.id))
+        dispatch(loadUserExpensesThunk(user.id))
     }, [dispatch])
+
+
+    if(!expenses) return null
     return (
         <div className="homepage-container">
             <div className="homepage">
@@ -26,12 +35,17 @@ export default function Dashboard() {
                     </div>
                     <div>
                         <NavLink to='/expenses/all'>All expenses</NavLink>
+                        <OpenModalButton modalComponent={CreateExpenseModal} itemText={'Create Expense'} />
                     </div>
                 </div>
                 <div className="middle-content">
                     <h2 className="middle-heading">Dashboard</h2>
-                    {groupVal.map(group => (
-                        <GroupTile key={group.id} group={group}/>
+                    {expenses.map(expense => (
+                        <div className="expense-tile">
+                            <h4>{expense.description}</h4>
+                            <p>{expense.category}</p>
+                            <p>{expense.amount}</p>
+                        </div>
                     ))}
                 </div>
                 <div className="right-content">
