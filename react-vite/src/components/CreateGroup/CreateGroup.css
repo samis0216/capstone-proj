@@ -1,0 +1,38 @@
+.createGroupPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 50px;
+}
+
+.createGroupContainer {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 50px;
+}
+
+.imageUpload {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.infoContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 316px;
+}
+
+.groupMembersContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.groupMembers {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}

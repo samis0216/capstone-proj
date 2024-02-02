@@ -1,19 +1,16 @@
-from app.models import db, User, environment, SCHEMA
+from app.models import db, environment, SCHEMA
+from app.models.group import Group
 from sqlalchemy.sql import text
 
 
 # Adds a demo user, you can add other users here if you want
-def seed_users():
-    demo = User(
-        username='Demo', email='demo@aa.io', password='password', currency='USD ($)', yearJoined='2023')
-    marnie = User(
-        username='marnie', email='marnie@aa.io', password='password', currency='EURO (€)', yearJoined='2024')
-    bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password', currency='YEN (¥)', yearJoined='2024')
-
-    db.session.add(demo)
-    db.session.add(marnie)
-    db.session.add(bobbie)
+def seed_groups():
+    skitrip = Group(name='Ski Trip 2023', organizer_id=1, group_pic_url='https://cdn.pixabay.com/photo/2020/05/29/13/26/icons-5235125_1280.png')
+    hawaii = Group(name='Hawaii Trip 2023', organizer_id=2, group_pic_url='https://cdn.pixabay.com/photo/2020/05/29/13/26/icons-5235125_1280.png')
+    gamblers= Group(name='Gamblers', organizer_id=3, group_pic_url='https://cdn.pixabay.com/photo/2020/05/29/13/26/icons-5235125_1280.png')
+    db.session.add(skitrip)
+    db.session.add(hawaii)
+    db.session.add(gamblers)
     db.session.commit()
 
 
@@ -23,7 +20,7 @@ def seed_users():
 # incrementing primary key, CASCADE deletes any dependent entities.  With
 # sqlite3 in development you need to instead use DELETE to remove all data and
 # it will reset the primary keys for you as well.
-def undo_users():
+def undo_groups():
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
     else:
