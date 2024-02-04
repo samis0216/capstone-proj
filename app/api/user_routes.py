@@ -83,9 +83,14 @@ def postExpense(id):
         )
         db.session.add(newExpense)
         db.session.commit()
-        return newExpense.to_dict()
+        return [newExpense.to_dict()]
     return "Bad Data"
 
 @user_routes.route('/<int:id>/expenses')
 def userExpenses(id):
     return [expense.to_dict() for expense in Expense.query.filter(Expense.payer_id == id).all()]
+
+@user_routes.route('/<int:id/expenses/<int:expenseId')
+def oneExpense(id, expenseId):
+    expense = Expense.query.get(expenseId)
+    return expense.to_dict()

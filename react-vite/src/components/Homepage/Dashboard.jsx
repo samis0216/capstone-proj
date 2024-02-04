@@ -6,8 +6,7 @@ import './Dashboard.css'
 // import GroupTile from "../Tiles/GroupTile"
 import { loadUserExpensesThunk } from "../../redux/expenses"
 import OpenModalButton from "../OpenModalButton/OpenModalButton"
-import CreateExpenseModal from "../CreateExpense/CreateExpenseModal"
-
+import CreateExpenseModal from "../CreateExpense/CreateExpense"
 
 export default function Dashboard() {
     const dispatch = useDispatch()
@@ -25,6 +24,7 @@ export default function Dashboard() {
 
 
     if(!expenses) return null
+
     return (
         <div className="homepage-container">
             <div className="homepage">
@@ -33,9 +33,9 @@ export default function Dashboard() {
                         <NavLink to='/dashboard'>Dashboard</NavLink>
                         <NavLink to='/activity'>Recent activity</NavLink>
                     </div>
-                    <div>
+                    <div className="left-bar-content">
                         <NavLink to='/expenses/all'>All expenses</NavLink>
-                        <OpenModalButton modalComponent={CreateExpenseModal} itemText={'Create Expense'} />
+                        <NavLink to='/expenses/new'>Create Expense</NavLink>
                     </div>
                 </div>
                 <div className="middle-content">
@@ -49,7 +49,6 @@ export default function Dashboard() {
                     ))}
                 </div>
                 <div className="right-content">
-
                 </div>
             </div>
         </div>
