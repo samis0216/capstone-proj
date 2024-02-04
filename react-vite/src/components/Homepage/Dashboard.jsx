@@ -3,10 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { NavLink, useNavigate } from "react-router-dom"
 import { loadUserGroupsThunk } from "../../redux/groups"
 import './Dashboard.css'
-import GroupTile from "../Tiles/GroupTile"
 import { loadUserExpensesThunk } from "../../redux/expenses"
-import OpenModalButton from "../OpenModalButton/OpenModalButton"
-import CreateExpenseModal from "../CreateExpense/CreateExpense"
 
 export default function Dashboard() {
     const dispatch = useDispatch()
@@ -15,6 +12,7 @@ export default function Dashboard() {
     const groups = Object.values(useSelector(state => state.groups))
     const expenses = Object.values(useSelector(state => state.expenses))
     const [option, setOption] = useState('expenses')
+    console.log(option)
 
     useEffect(() => {
         dispatch(loadUserGroupsThunk(user.id))
@@ -38,7 +36,7 @@ export default function Dashboard() {
                             <NavLink to='/groups/new'>+new</NavLink>
                         </div>
                         {groups.map(group => (
-                            <NavLink to={`/groups/${group.id}`}>{group.name}</NavLink>
+                            <NavLink key={group.id} to={`/groups/${group.id}`}>{group.name}</NavLink>
                     ))}
 
                     </div>
