@@ -90,7 +90,15 @@ def postExpense(id):
 def userExpenses(id):
     return [expense.to_dict() for expense in Expense.query.filter(Expense.payer_id == id).all()]
 
-@user_routes.route('/<int:id/expenses/<int:expenseId')
-def oneExpense(id, expenseId):
-    expense = Expense.query.get(expenseId)
+@user_routes.route('/expenses/<int:id>')
+def oneExpense(id):
+    expense = Expense.query.get(id)
+    print(expense)
     return expense.to_dict()
+
+@user_routes.route('/expenses/<int:id>', methods=['DELETE'])
+def deleteExpense(id):
+    expense = Expense.query.get(id)
+    db.session.delete(expense)
+    db.session.commit()
+    return 'Successfully deleted'
