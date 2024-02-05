@@ -2,6 +2,7 @@ const LOAD_GROUPS = 'groups/loadGroups'
 const LOAD_ONE_GROUP = 'groups/loadOneGroup'
 const CREATE_GROUP = 'groups/createGroup'
 const DELETE_GROUP = 'groups/deleteGroup'
+const UPDATE_GROUP = 'groups/updateGroup'
 
 const loadUserGroups = (groups) => {
     return {
@@ -28,6 +29,13 @@ const deleteGroup = (payload) => {
     return {
         type: DELETE_GROUP,
         payload
+    }
+}
+
+const updateGroup = (group) => {
+    return {
+        type: UPDATE_GROUP,
+        group
     }
 }
 
@@ -77,6 +85,19 @@ export const deleteGroupThunk = (userId, groupId) => async (dispatch) => {
     }
 }
 
+export const updateGroupThunk = (groupId, group) => async(dispatch) => {
+    const res = await fetch(`/api/groups/${groupId}`, {
+        method: 'PUT',
+        body: group
+    })
+
+    if (res.ok) {
+        const data = await res.json()
+        dispatch(updateGroup(data))
+        return data
+    }
+}
+
 const initialState = {}
 
 const groupsReducer = (state = initialState, action) => {
@@ -100,6 +121,11 @@ const groupsReducer = (state = initialState, action) => {
         case DELETE_GROUP: {
             const newState = {...state}
             delete newState[action.payload.id]
+            return newState
+        }
+        case UPDATE_GROUP: {
+            const newState = {}
+            newState[action.group.id] = action.group
             return newState
         }
         default:
