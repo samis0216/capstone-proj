@@ -18,17 +18,24 @@ const loadOneExpense = (expense) => {
     }
 }
 
-// const createExpense = (expense) => {
-//     return {
-//         type: CREATE_EXPENSE,
-//         expense
-//     }
-// }
+const createExpense = (expense) => {
+    return {
+        type: CREATE_EXPENSE,
+        expense
+    }
+}
 
 const deleteExpense = (payload) => {
     return {
         type: DELETE_EXPENSE,
         payload
+    }
+}
+
+const updateExpense = (expense) => {
+    return {
+        type: UPDATE_EXPENSE,
+        expense
     }
 }
 
@@ -50,7 +57,7 @@ export const createUserExpenseThunk = (userId, expense) => async(dispatch) => {
 
     if (res.ok) {
         const data = await res.json()
-        dispatch(loadUserExpenses(data))
+        dispatch(createExpense(data))
         return data
     }
 }
@@ -61,6 +68,19 @@ export const loadOneExpenseThunk = (expenseId) => async(dispatch) => {
     if (res.ok) {
         const data = await res.json()
         dispatch(loadOneExpense(data))
+        return data
+    }
+}
+
+export const updateExpenseThunk = (expenseId, expense) => async(dispatch) => {
+    const res = await fetch(`/api/expenses/${expenseId}`, {
+        method: 'PUT',
+        body: expense
+    })
+
+    if (res.ok) {
+        const data = await res.json()
+        dispatch(updateExpense(data))
         return data
     }
 }
@@ -98,7 +118,8 @@ const expensesReducer = (state=initialState, action) => {
             return newState
         }
         case UPDATE_EXPENSE: {
-            const newState = {...state, [action.expense.id]: action.expense}
+            const newState = {}
+            newState[action.expense.id] = action.expense
             return newState
         }
         case DELETE_EXPENSE: {
