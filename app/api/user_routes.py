@@ -67,8 +67,9 @@ def deleteGroup(id, groupId):
         'status': 'Successfully Deleted'
         }
 
-@user_routes.route('/<int:id>/expense/new', methods=['POST'])
-def postExpense():
+
+@user_routes.route('/<int:id>/expenses', methods=['POST'])
+def postExpense(id):
     form = ExpenseForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit:
@@ -77,9 +78,27 @@ def postExpense():
             category=data['category'],
             description=data['description'],
             payer_id=data['payer_id'],
-            group_id=data['group_id']
+            group_id=data['group_id'],
+            amount=data['amount']
         )
         db.session.add(newExpense)
         db.session.commit()
-        return newExpense.to_dict()
+        return [newExpense.to_dict()]
     return "Bad Data"
+
+@user_routes.route('/<int:id>/expenses')
+def userExpenses(id):
+    return [expense.to_dict() for expense in Expense.query.filter(Expense.payer_id == id).all()]
+
+@user_routes.route('/expenses/<int:id>')
+def oneExpense(id):
+    expense = Expense.query.get(id)
+    print(expense)
+    return expense.to_dict()
+
+@user_routes.route('/expenses/<int:id>', methods=['DELETE'])
+def deleteExpense(id):
+    expense = Expense.query.get(id)
+    db.session.delete(expense)
+    db.session.commit()
+    return 'Successfully deleted'

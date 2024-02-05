@@ -2,11 +2,11 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createGroupThunk } from "../../redux/groups";
 import "./CreateGroup.css";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 export default function CreateGroup() {
     const dispatch = useDispatch();
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const [name, setName] = useState('')
     const [imageUrl, setImageURL] = useState('')
     const [errors, setErrors] = useState({});
@@ -14,6 +14,8 @@ export default function CreateGroup() {
     const [awsLoading, setAwsLoading] = useState(false)
     const [submitted, setSubmitted] = useState(false)
     const user = useSelector(state => state.session.user)
+
+    console.log(awsLoading, submitted)
 
     const handleSubmit = async (e) => {
 
@@ -27,7 +29,8 @@ export default function CreateGroup() {
             form.append('organizer_id', user.id)
             form.append('group_pic_url', imageUrl)
             setAwsLoading(true);
-            const newGroup = dispatch(createGroupThunk(user.id, form));
+            dispatch(createGroupThunk(user.id, form));
+            setErrors('')
             // navigate(`/dashboard`)
         }
     }

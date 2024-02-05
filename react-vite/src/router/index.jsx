@@ -5,6 +5,8 @@ import Layout from './Layout';
 import Dashboard from '../components/Homepage/Dashboard';
 import CreateGroup from '../components/CreateGroup/CreateGroup';
 import GroupDetails from '../components/GroupDetails/GroupDetails';
+import CreateExpense from '../components/CreateExpense/CreateExpense';
+import ExpenseDetails from '../components/ExpenseDetails/ExpenseDetails'
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +35,14 @@ export const router = createBrowserRouter([
       {
         path: "/groups/:groupId",
         element: <GroupDetails />
+      },
+      {
+        path: "/expenses/new",
+        element: <CreateExpense />
+      },
+      {
+        path: '/expenses/:expenseId',
+        element: <ExpenseDetails />
       }
     ],
   },
