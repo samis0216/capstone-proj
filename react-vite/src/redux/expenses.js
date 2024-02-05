@@ -11,12 +11,12 @@ const loadUserExpenses = (expenses) => {
     }
 }
 
-// const loadOneExpense = (expense) => {
-//     return {
-//         type: LOAD_ONE_EXPENSE,
-//         expense
-//     }
-// }
+const loadOneExpense = (expense) => {
+    return {
+        type: LOAD_ONE_EXPENSE,
+        expense
+    }
+}
 
 // const createExpense = (expense) => {
 //     return {
@@ -25,12 +25,12 @@ const loadUserExpenses = (expenses) => {
 //     }
 // }
 
-// const deleteExpense = (payload) => {
-//     return {
-//         type: DELETE_EXPENSE,
-//         payload
-//     }
-// }
+const deleteExpense = (payload) => {
+    return {
+        type: DELETE_EXPENSE,
+        payload
+    }
+}
 
 export const loadUserExpensesThunk = (userId) => async(dispatch) => {
     const res = await fetch(`/api/users/${userId}/expenses`)
@@ -51,6 +51,28 @@ export const createUserExpenseThunk = (userId, expense) => async(dispatch) => {
     if (res.ok) {
         const data = await res.json()
         dispatch(loadUserExpenses(data))
+        return data
+    }
+}
+
+export const loadOneExpenseThunk = (expenseId) => async(dispatch) => {
+    const res = await fetch(`/api/users/expenses/${expenseId}`)
+
+    if (res.ok) {
+        const data = await res.json()
+        dispatch(loadOneExpense(data))
+        return data
+    }
+}
+
+export const deleteExpenseThunk = (expenseId) => async(dispatch) => {
+    const res = await fetch(`/api/users/expenses/${expenseId}`, {
+        method: 'DELETE'
+    })
+
+    if (res.ok) {
+        const data = await res.json()
+        dispatch(deleteExpense)
         return data
     }
 }
