@@ -6,34 +6,36 @@
 .homepage {
     display: flex;
     justify-content: center;
+    background-color: #FFFFFF;
 }
 
 .left-bar {
     width: 200px;
-    border: black 2px solid;
+    margin: 15px;
 }
 
 .left-bar-content {
     display: flex;
-    flex-direction: column;
+    flex-direction: column;;
 }
 
 .middle-content {
     width: 33%;
-    border: green solid 2px;
     height: 600px;
     display: flex;
     flex-direction: column;
+    border: 1px solid #CCCCCC;
+    box-shadow: 0 12px rgba(0,0,0,0.2);
+    -webkit-box-shadow: 0 0 12px rgba(0,0,0,0.2);
 }
 
 .middle-heading {
-    padding: 5px;
-    margin: 10px;
+    padding: 10px;
+    background-color: #EEEEEE;
 }
 
 .right-content {
     width: 200px;
-    border: red solid 2px;
 }
 
 .group-tile {
@@ -41,20 +43,20 @@
     align-items: center;
     margin: 10px;
     padding: 5px;
-    border: black solid 1px;
 }
 
 .expense-tile {
     display: flex;
     flex-direction: column;
-    margin: 10px;
-    padding: 5px;
-    border: black solid 1px;
+    margin: 0 10 10 10px;
+    padding: 10px;
+    border-top: #DDDDDD solid 1px;
 }
 
 .group-container {
     display: flex;
     justify-content: space-between;
-    background-color: rgb(195, 195, 195);
+    background-color: #F6F6F6;
     border: 1px solid rgb(164, 164, 164);
+
 }

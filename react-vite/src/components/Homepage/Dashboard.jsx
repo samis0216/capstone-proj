@@ -20,40 +20,42 @@ export default function Dashboard() {
     }, [dispatch])
 
 
-    if(!expenses) return null
+    if (!expenses) return null
 
     return (
         <div className="homepage-container">
             <div className="homepage">
                 <div className="left-bar">
                     <div className="left-bar-content">
-                        <NavLink to='/dashboard'>Dashboard</NavLink>
-                        <NavLink to='/activity'>Recent activity</NavLink>
+                        <NavLink style={{color: '#666666', textDecoration: 'none'}} to='/dashboard'>Dashboard</NavLink>
+                        <NavLink style={{color: '#666666', textDecoration: 'none'}} to='/activity'>Recent activity</NavLink>
+                        <div className="left-bar-content">
+                            <p to='/expenses/all' onClick={() => setOption('expenses')} style={{color: '#666666', textDecoration: 'none'}}>All expenses</p>
+                            {/* <NavLink to='/expenses/new'>Create Expense</NavLink> */}
+                        </div>
                     </div>
                     <div className="left-bar-content">
                         <div className="group-container">
                             <p>Groups</p>
-                            <NavLink to='/groups/new'>+new</NavLink>
+                            <NavLink style={{color: '#666666', textDecoration: 'none'}} to='/groups/new'>+new</NavLink>
                         </div>
                         {groups.map(group => (
-                            <NavLink key={group.id} to={`/groups/${group.id}`}>{group.name}</NavLink>
-                    ))}
+                            <NavLink style={{color: '#666666', textDecoration: 'none'}} key={group.id} to={`/groups/${group.id}`}>{group.name}</NavLink>
+                        ))}
 
-                    </div>
-                    <div className="left-bar-content">
-                        <p to='/expenses/all' onClick={()=> setOption('expenses')}>All expenses</p>
-                        {/* <NavLink to='/expenses/new'>Create Expense</NavLink> */}
                     </div>
                 </div>
                 <div className="middle-content">
                     <h2 className="middle-heading">Dashboard</h2>
+                    <div>
                         {expenses.map(expense => (
-                        <div key={expense.id} className="expense-tile" onClick={()=> navigate(`/expenses/${expense.id}`)}>
-                            <h4>{expense.description}</h4>
-                            <p>{expense.category}</p>
-                            <p>{expense.amount}</p>
-                        </div>
+                            <div key={expense.id} className="expense-tile" onClick={() => navigate(`/expenses/${expense.id}`)}>
+                                <h4>{expense.description}</h4>
+                                <p>{expense.category}</p>
+                                <p>{expense.amount}</p>
+                            </div>
                         ))}
+                    </div>
                 </div>
                 <div className="right-content">
                 </div>
