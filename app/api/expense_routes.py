@@ -6,10 +6,6 @@ from app.forms.expense_form import ExpenseForm
 
 expense_routes = Blueprint('expense', __name__ )
 
-# @expense_routes.route('/<int:id>')
-# def allExpenses():
-#     expenses = Expense.query.filter()
-
 @expense_routes.route('/<int:id>', methods=['PUT'])
 def updateExpense(id):
     expense = Expense.query.get(id)
@@ -24,7 +20,6 @@ def updateExpense(id):
         expense.group_id=form.data['group_id']
         expense.amount=data['amount']
         db.session.commit()
-        return expense.to_dict()
     return 'Bad Data'
 
 @expense_routes.route('/<int:id>/details')

@@ -27,26 +27,31 @@ export default function Dashboard() {
             <div className="homepage">
                 <div className="left-bar">
                     <div className="left-bar-content">
-                        <NavLink style={{color: '#666666', textDecoration: 'none'}} to='/dashboard'>Dashboard</NavLink>
-                        <NavLink style={{color: '#666666', textDecoration: 'none'}} to='/activity'>Recent activity</NavLink>
+                        <NavLink style={{ color: '#666666', textDecoration: 'none' }} to='/dashboard'>Dashboard</NavLink>
+                        <NavLink style={{ color: '#666666', textDecoration: 'none' }} to='/activity'>Recent activity</NavLink>
                         <div className="left-bar-content">
-                            <p to='/expenses/all' onClick={() => setOption('expenses')} style={{color: '#666666', textDecoration: 'none'}}>All expenses</p>
+                            <p to='/expenses/all' onClick={() => setOption('expenses')} style={{ color: '#666666', textDecoration: 'none' }}>All expenses</p>
                             {/* <NavLink to='/expenses/new'>Create Expense</NavLink> */}
                         </div>
                     </div>
                     <div className="left-bar-content">
                         <div className="group-container">
                             <p>Groups</p>
-                            <NavLink style={{color: '#666666', textDecoration: 'none'}} to='/groups/new'>+new</NavLink>
+                            <NavLink style={{ color: '#666666', textDecoration: 'none' }} to='/groups/new'>+new</NavLink>
                         </div>
                         {groups.map(group => (
-                            <NavLink style={{color: '#666666', textDecoration: 'none'}} key={group.id} to={`/groups/${group.id}`}>{group.name}</NavLink>
+                            <NavLink style={{ color: '#666666', textDecoration: 'none' }} key={group.id} to={`/groups/${group.id}`}>{group.name}</NavLink>
                         ))}
-
                     </div>
                 </div>
                 <div className="middle-content">
-                    <h2 className="middle-heading">Dashboard</h2>
+                    <div className="middle-heading">
+                        <h2>Dashboard</h2>
+                        <div className="dashButtons">
+                            <button style={{backgroundColor: '#FF6430', color: "white"}} onClick={() => navigate('/expenses/new')}>Add an Expense</button>
+                            <button style={{backgroundColor: '#5BC5A6', color: "white"}}>Settle Up</button>
+                        </div>
+                    </div>
                     <div>
                         {expenses.map(expense => (
                             <div key={expense.id} className="expense-tile" onClick={() => navigate(`/expenses/${expense.id}`)}>
