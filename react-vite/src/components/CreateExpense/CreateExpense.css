@@ -11,11 +11,10 @@
     gap: 20px   ;
 }
 
-
-
 .categoryHolder {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+    gap: 40px;
     width: 1000px;
     height: 130px;
     align-items: center;

@@ -20,7 +20,7 @@ function UpdateExpenseModal({expense, userId}) {
     const { closeModal } = useModal();
     const userGroups = Object.values(useSelector(state => state.groups))
     const group = useSelector(state =>state.groups[groupId])
-    console.log(category)
+    console.log(groupId)
 
     useEffect(()=> {
         dispatch(loadUserGroupsThunk(userId))
@@ -41,7 +41,7 @@ function UpdateExpenseModal({expense, userId}) {
         if (amount <= 0) {
             newErrors.amount = 'Amount must be a number greater than 0.'
         }
-        if (groupId === '') {
+        if (!groupId) {
             newErrors.groupId = 'Group selection is required'
         }
         setErrors(newErrors);
@@ -76,7 +76,7 @@ function UpdateExpenseModal({expense, userId}) {
                 </label>
                 {submitted && errors.category && <p style={{ color: 'red' }}>{errors.category}</p>}
                 <p>Category</p>
-                <div className="categoryHolder">
+                <div className="categoryHolder" style={{gap: 20}}>
                     <div className="categoryOption" id={category == 'Food' ? 'selected' : 'not'} onClick={() => {
                         setCategory('Food')
                     }}>
@@ -109,8 +109,9 @@ function UpdateExpenseModal({expense, userId}) {
                 <label htmlFor="">
                     Group
                     <select name="groupId" onChange={(e) => setGroupId(e.target.value)}>
+                            <option value="">(select a group)</option>
                         {userGroups?.map(group => (
-                            <option key={group.id} value={group.id} onClick={(e)=> setGroupId(e.target.value)}>{group.name}</option>
+                            <option key={group.id} value={group.id}>{group.name}</option>
                         ))}
                     </select>
                 </label>

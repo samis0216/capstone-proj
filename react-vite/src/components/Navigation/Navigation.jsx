@@ -5,10 +5,10 @@ import { useSelector } from "react-redux";
 
 function Navigation() {
 
-  const session = useSelector(state => state.session)
+  const user = useSelector(state => state.session.user)
   return (
     <div className="navBar">
-      <NavLink to={session? "/dashboard" : "/"}>Home</NavLink>
+      <NavLink to={user? "/dashboard" : "/"}>Home</NavLink>
       <span>
         <ProfileButton />
       </span>
