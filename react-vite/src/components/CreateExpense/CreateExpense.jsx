@@ -10,13 +10,13 @@ import './CreateExpense.css'
 function CreateExpense() {
     const dispatch = useDispatch();
     const navigate = useNavigate()
-    const [selected, setSelected] = useState('')
+    // const [selected, setSelected] = useState('')
     const [category, setCategory] = useState('');
     const [description, setDescription] = useState("");
     const [amount, setAmount] = useState("");
     const [groupId, setGroupId] = useState('')
-    // const [errors, setErrors] = useState({});
-    console.log(category)
+    const [errors, setErrors] = useState({});
+    const [submitted, setSubmitted] = useState(false)
 
     const user = useSelector(state => state.session.user)
     const userGroups = Object.values(useSelector(state => state.groups))
@@ -25,56 +25,88 @@ function CreateExpense() {
         dispatch(loadUserGroupsThunk(user.id))
     }, [dispatch])
 
+    if (!user) navigate('/')
+
+    useEffect(() => {
+        const newErrors = {};
+        if (!description.length) {
+            newErrors.description = 'Description is required.'
+        }
+        if (description.length > 20) {
+            newErrors.description = 'Description must be 20 characters or less.'
+        }
+        if (!category) {
+            newErrors.category = 'Please select a category'
+        }
+        if (amount <= 0) {
+            newErrors.amount = 'Amount must be a number greater than 0.'
+        }
+        if (groupId === '') {
+            newErrors.groupId = 'Group selection is required'
+        }
+        setErrors(newErrors);
+    }, [description, amount, groupId, category])
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        let form = new FormData()
-        form.append('category', category)
-        form.append('description', description)
-        form.append('amount', amount)
-        form.append('payer_id', user.id)
-        form.append('group_id', groupId)
 
-        dispatch(createUserExpenseThunk(user.id, form))
-        navigate('/dashboard')
+        setSubmitted(true)
+
+        if (!Object.values(errors).length) {
+            let form = new FormData()
+            form.append('category', category)
+            form.append('description', description)
+            form.append('amount', amount)
+            form.append('payer_id', user.id)
+            form.append('group_id', groupId)
+
+            dispatch(createUserExpenseThunk(user.id, form))
+            navigate('/dashboard')
+        }
+
     };
 
     return (
         <div className="createExpenseMain">
             <form className="createExpenseForm">
-            <h1>Add an Expense</h1>
+                <h1>Add an Expense</h1>
+                {submitted && errors.description && <p style={{ color: 'red' }}>{errors.description}</p>}
                 <label htmlFor="">
                     Description
                     <input type="text" onChange={(e) => setDescription(e.target.value)} />
                 </label>
+                {submitted && errors.category && <p style={{ color: 'red' }}>{errors.category}</p>}
                 <p>Category</p>
                 <div className="categoryHolder">
-                    <div className="categoryOption" id={category == 'Food' ? 'selected' : 'not'} onClick={()=> {
+                    <div className="categoryOption" id={category == 'Food' ? 'selected' : 'not'} onClick={() => {
                         setCategory('Food')
                     }}>
                         <i className="fa-solid fa-bowl-food"></i>
                         <p>Food</p>
                     </div>
-                    <div className="categoryOption" id={category == 'Entertainment' ? 'selected' : 'not'} onClick={()=> {
+                    <div className="categoryOption" id={category == 'Entertainment' ? 'selected' : 'not'} onClick={() => {
                         setCategory('Entertainment')
                     }}>
                         <i className="fa-solid fa-champagne-glasses"></i>
                         <p>Entertainment</p>
                     </div>
-                    <div className="categoryOption" id={category == 'Living Expenses' ? 'selected' : 'not'} onClick={()=> {
+                    <div className="categoryOption" id={category == 'Living Expenses' ? 'selected' : 'not'} onClick={() => {
                         setCategory('Living Expenses')
                     }}>
                         <p>Living Expenses</p>
                     </div>
-                    <div className="categoryOption" id={category == 'Other' ? 'selected' : 'not'} onClick={()=> {
+                    <div className="categoryOption" id={category == 'Other' ? 'selected' : 'not'} onClick={() => {
                         setCategory('Other')
                     }}>
                         <p>Other</p>
                     </div>
                 </div>
+                {submitted && errors.amount && <p style={{ color: 'red' }}>{errors.amount}</p>}
                 <label htmlFor="">
                     Amount
-                    <input type="input" onChange={(e) => setAmount(e.target.value)} />
+                    <input type="number" onChange={(e) => setAmount(e.target.value)} />
                 </label>
+                {submitted && errors.groupId && <p style={{ color: 'red' }}>{errors.groupId}</p>}
                 <label htmlFor="">Group
                     <select name="" id="" onChange={(e) => setGroupId(e.target.value)}>
                         <option disabled={false}>(select option)</option>

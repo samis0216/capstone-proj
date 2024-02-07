@@ -4,6 +4,7 @@ import { useModal } from "../../context/Modal";
 import { loadOneExpenseThunk, updateExpenseThunk } from "../../redux/expenses";
 import { loadUserGroupsThunk } from "../../redux/groups";
 // import { useNavigate } from "react-router-dom";
+import './UpdateExpense.css'
 
 
 function UpdateExpenseModal({expense, userId}) {
@@ -14,9 +15,11 @@ function UpdateExpenseModal({expense, userId}) {
     const [description, setDescription] = useState(expense.description);
     const [amount, setAmount] = useState(expense.amount);
     const [groupId, setGroupId] = useState(expense.groupId)
-    // const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState({});
+    const [submitted, setSubmitted] = useState(false)
     const { closeModal } = useModal();
     const userGroups = Object.values(useSelector(state => state.groups))
+    const group = useSelector(state =>state.groups[groupId])
     console.log(category)
 
     useEffect(()=> {
@@ -24,43 +27,88 @@ function UpdateExpenseModal({expense, userId}) {
         dispatch(loadOneExpenseThunk(expense.id))
     }, [dispatch])
 
+    useEffect(() => {
+        const newErrors = {};
+        if (!description.length) {
+            newErrors.description = 'Description is required.'
+        }
+        if (description.length > 20) {
+            newErrors.description = 'Description must be 20 characters or less.'
+        }
+        if (!category) {
+            newErrors.category = 'Please select a category'
+        }
+        if (amount <= 0) {
+            newErrors.amount = 'Amount must be a number greater than 0.'
+        }
+        if (groupId === '') {
+            newErrors.groupId = 'Group selection is required'
+        }
+        setErrors(newErrors);
+    }, [description, amount, groupId, category])
+
     const handleSubmit = async (e) => {
         e.preventDefault()
-        let form = new FormData()
-        form.append('category', category)
-        form.append('description', description)
-        form.append('amount', amount)
-        form.append('payer_id', userId)
-        form.append('group_id', groupId)
 
-        dispatch(updateExpenseThunk(expense.id, form))
-        closeModal()
+        setSubmitted(true)
+
+        if (!Object.values(errors).length) {
+            let form = new FormData()
+            form.append('category', category)
+            form.append('description', description)
+            form.append('amount', amount)
+            form.append('payer_id', userId)
+            form.append('group_id', groupId)
+
+            dispatch(updateExpenseThunk(expense.id, form))
+            closeModal()
+        }
     };
 
     return (
-        <div>
-            <form>
+        <div className="updateFormModal">
+            <form className="formExpense">
+                <h1>Update "{expense.description}"</h1>
+                {submitted && errors.description && <p style={{ color: 'red' }}>{errors.description}</p>}
                 <label htmlFor="">
                     Description
-                    <input type="text" onChange={(e) => setDescription(e.target.value)} />
+                    <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
                 </label>
-                <label htmlFor="">
-                    Category
-                    <select name="category" onChange={(e) => setCategory(e.target.value)}>
-                        <option value="Food">Food</option>
-                        <option value="Entertainment">Entertainment</option>
-                        <option value="Living Expenses">Living Expenses</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </label>
+                {submitted && errors.category && <p style={{ color: 'red' }}>{errors.category}</p>}
+                <p>Category</p>
+                <div className="categoryHolder">
+                    <div className="categoryOption" id={category == 'Food' ? 'selected' : 'not'} onClick={() => {
+                        setCategory('Food')
+                    }}>
+                        <i className="fa-solid fa-bowl-food"></i>
+                        <p>Food</p>
+                    </div>
+                    <div className="categoryOption" id={category == 'Entertainment' ? 'selected' : 'not'} onClick={() => {
+                        setCategory('Entertainment')
+                    }}>
+                        <i className="fa-solid fa-champagne-glasses"></i>
+                        <p>Entertainment</p>
+                    </div>
+                    <div className="categoryOption" id={category == 'Living Expenses' ? 'selected' : 'not'} onClick={() => {
+                        setCategory('Living Expenses')
+                    }}>
+                        <p>Living Expenses</p>
+                    </div>
+                    <div className="categoryOption" id={category == 'Other' ? 'selected' : 'not'} onClick={() => {
+                        setCategory('Other')
+                    }}>
+                        <p>Other</p>
+                    </div>
+                </div>
+                {submitted && errors.amount && <p style={{ color: 'red' }}>{errors.amount}</p>}
                 <label htmlFor="">
                     Amount
-                    <input type="input" onChange={(e) => setAmount(e.target.value)} />
+                    <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} />
                 </label>
+                {submitted && errors.groupId && <p style={{ color: 'red' }}>{errors.groupId}</p>}
                 <label htmlFor="">
                     Group
                     <select name="groupId" onChange={(e) => setGroupId(e.target.value)}>
-                        <option disabled={false}>(select option)</option>
                         {userGroups?.map(group => (
                             <option key={group.id} value={group.id} onClick={(e)=> setGroupId(e.target.value)}>{group.name}</option>
                         ))}

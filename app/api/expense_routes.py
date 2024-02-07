@@ -23,6 +23,11 @@ def updateExpense(id):
         return expense.to_dict()
     return 'Bad Data'
 
+@expense_routes.route('/groups/<int:id>')
+def loadGroupExpenses(id):
+    expenses = [expense.to_dict() for expense in Expense.query.filter(Expense.group_id == id).all()]
+    return expenses
+
 @expense_routes.route('/<int:id>/details')
 def getDetails(id):
     details = [expense.to_dict() for expense in ExpenseDetail.query.filter(ExpenseDetail.expense_id == id).all()]
