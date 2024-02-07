@@ -48,27 +48,25 @@ function CreateExpense() {
                 </label>
                 <p>Category</p>
                 <div className="categoryHolder">
-                    <div className="categoryOption" onClick={()=> {
+                    <div className="categoryOption" id={category == 'Food' ? 'selected' : 'not'} onClick={()=> {
                         setCategory('Food')
                     }}>
                         <i className="fa-solid fa-bowl-food"></i>
                         <p>Food</p>
                     </div>
-                    <div className="categoryOption" onClick={()=> {
+                    <div className="categoryOption" id={category == 'Entertainment' ? 'selected' : 'not'} onClick={()=> {
                         setCategory('Entertainment')
                     }}>
                         <i className="fa-solid fa-champagne-glasses"></i>
                         <p>Entertainment</p>
                     </div>
-                    <div className="categoryOption" onClick={()=> {
+                    <div className="categoryOption" id={category == 'Living Expenses' ? 'selected' : 'not'} onClick={()=> {
                         setCategory('Living Expenses')
-
                     }}>
                         <p>Living Expenses</p>
                     </div>
-                    <div className="categoryOption" onClick={()=> {
+                    <div className="categoryOption" id={category == 'Other' ? 'selected' : 'not'} onClick={()=> {
                         setCategory('Other')
-
                     }}>
                         <p>Other</p>
                     </div>

@@ -17,6 +17,7 @@ function UpdateExpenseModal({expense, userId}) {
     // const [errors, setErrors] = useState({});
     const { closeModal } = useModal();
     const userGroups = Object.values(useSelector(state => state.groups))
+    console.log(category)
 
     useEffect(()=> {
         dispatch(loadUserGroupsThunk(userId))
@@ -32,7 +33,7 @@ function UpdateExpenseModal({expense, userId}) {
         form.append('payer_id', userId)
         form.append('group_id', groupId)
 
-        dispatch(updateExpenseThunk(userId, form))
+        dispatch(updateExpenseThunk(expense.id, form))
         closeModal()
     };
 

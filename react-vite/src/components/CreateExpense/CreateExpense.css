@@ -40,3 +40,19 @@
     cursor: pointer;
     padding: 10px;
 }
+
+#selected {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 120px;
+    border: #FF6430 solid 1px;
+    gap: 10px;
+    color: white;
+    background-color: #FF6430;
+    border-radius: 8px;
+    box-shadow: 0 0 0 3px #da4614;
+    padding: 10px;
+}
