@@ -39,7 +39,7 @@ export default function UpdateGroup({ group, user }) {
 
     return (
         <div className="updateGroupModal">
-            <h1>Update "{group.name}"</h1>
+            <h1>Update &quot;{group.name}&quot;</h1>
             <p style={{fontStyle: "italic"}}>Image will remain the same if no image is uploaded.</p>
             <div style={{display: "flex", alignItems: 'center', padding: 20}}>
                 <div className="imageInput">

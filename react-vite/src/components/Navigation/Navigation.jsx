@@ -8,7 +8,7 @@ function Navigation() {
   const user = useSelector(state => state.session.user)
   return (
     <div className="navBar">
-      <NavLink to={user? "/dashboard" : "/"}>Home</NavLink>
+      <NavLink style={{color: "white", textDecoration: 'none'}}to={user? "/dashboard" : "/"}>SPLITTI</NavLink>
       <span>
         <ProfileButton />
       </span>

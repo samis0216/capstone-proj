@@ -19,7 +19,7 @@ function UpdateExpenseModal({expense, userId}) {
     const [submitted, setSubmitted] = useState(false)
     const { closeModal } = useModal();
     const userGroups = Object.values(useSelector(state => state.groups))
-    const group = useSelector(state =>state.groups[groupId])
+    // const group = useSelector(state =>state.groups[groupId])
     console.log(groupId)
 
     useEffect(()=> {
@@ -68,7 +68,7 @@ function UpdateExpenseModal({expense, userId}) {
     return (
         <div className="updateFormModal">
             <form className="formExpense">
-                <h1>Update "{expense.description}"</h1>
+                <h1>Update &quot;{expense.description}&quot;</h1>
                 {submitted && errors.description && <p style={{ color: 'red' }}>{errors.description}</p>}
                 <label htmlFor="">
                     Description

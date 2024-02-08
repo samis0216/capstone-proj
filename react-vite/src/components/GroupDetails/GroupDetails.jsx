@@ -57,7 +57,7 @@ export default function GroupDetails() {
                         <h3>Members</h3>
                         <hr />
                         {Object.values(groupMembers).map(member => (
-                            <div>
+                            <div key={member.id}>
                                 <p>{member.name}</p>
                             </div>
                         ))}

@@ -18,9 +18,9 @@ def seed_expense_details():
     det7=ExpenseDetail(expense_id= 5, contributer_id= 7, amount= 33.34, settled = False)
     det8=ExpenseDetail(expense_id= 5, contributer_id= 8, amount= 33.33, settled = False)
     det9=ExpenseDetail(expense_id= 5, contributer_id= 9, amount= 33.33, settled = False)
-    det72=ExpenseDetail(expense_id= 5, contributer_id= 7, amount= 27.68, settled = False)
-    det82=ExpenseDetail(expense_id= 5, contributer_id= 8, amount= 27.66, settled = False)
-    det92=ExpenseDetail(expense_id= 5, contributer_id= 9, amount= 27.66, settled = False)
+    det72=ExpenseDetail(expense_id= 6, contributer_id= 7, amount= 27.68, settled = False)
+    det82=ExpenseDetail(expense_id= 6, contributer_id= 8, amount= 27.66, settled = False)
+    det92=ExpenseDetail(expense_id= 6, contributer_id= 9, amount= 27.66, settled = False)
 
     db.session.add(det1)
     db.session.add(det12)
