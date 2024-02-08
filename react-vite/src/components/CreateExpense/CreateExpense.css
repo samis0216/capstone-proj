@@ -1,0 +1,57 @@
+.createExpenseMain {
+    display: flex;
+    justify-content: center;
+}
+
+.createExpenseForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    gap: 20px   ;
+}
+
+.categoryHolder {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    width: 1000px;
+    height: 130px;
+    align-items: center;
+}
+
+.categoryOption {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 120px;
+    border: #50c2a0 solid 1px;
+    gap: 10px;
+    color: white;
+    background-color: #5BC5A6;
+    border-radius: 8px;
+    box-shadow: 0 0 0 3px #43947c;
+}
+
+.categoryOption:hover {
+    cursor: pointer;
+    padding: 10px;
+}
+
+#selected {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 120px;
+    border: #FF6430 solid 1px;
+    gap: 10px;
+    color: white;
+    background-color: #FF6430;
+    border-radius: 8px;
+    box-shadow: 0 0 0 3px #da4614;
+    padding: 10px;
+}

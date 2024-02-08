@@ -3,6 +3,7 @@ const LOAD_ONE_EXPENSE = 'groups/loadOneExpense'
 const CREATE_EXPENSE = 'groups/createExpense'
 const UPDATE_EXPENSE = 'expense/updateExpense'
 const DELETE_EXPENSE = 'groups/deleteExpense'
+const LOAD_GROUP_EXPENSES = 'groups/loadGroupExpenses'
 
 const loadUserExpenses = (expenses) => {
     return {
@@ -15,6 +16,13 @@ const loadOneExpense = (expense) => {
     return {
         type: LOAD_ONE_EXPENSE,
         expense
+    }
+}
+
+const loadGroupExpenses = (expenses) => {
+    return {
+        type: LOAD_GROUP_EXPENSES,
+        expenses
     }
 }
 
@@ -97,6 +105,16 @@ export const deleteExpenseThunk = (expenseId) => async(dispatch) => {
     }
 }
 
+export const loadGroupExpensesThunk = (groupId) => async(dispatch) => {
+    const res = await fetch(`/api/expenses/groups/${groupId}`)
+
+    if (res.ok) {
+        const data = await res.json()
+        dispatch(loadGroupExpenses(data))
+        return data
+    }
+}
+
 const initialState = {}
 
 const expensesReducer = (state=initialState, action) => {
@@ -111,6 +129,13 @@ const expensesReducer = (state=initialState, action) => {
         case LOAD_ONE_EXPENSE: {
             const newState = {}
             newState[action.expense.id] = action.expense
+            return newState
+        }
+        case LOAD_GROUP_EXPENSES: {
+            const newState = {}
+            action.expenses.forEach(expense => {
+                newState[expense.id] = expense
+            })
             return newState
         }
         case CREATE_EXPENSE: {

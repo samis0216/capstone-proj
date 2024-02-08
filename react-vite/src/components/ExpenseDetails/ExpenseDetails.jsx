@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { loadUserGroupsThunk } from "../../redux/groups"
 import OpenModalButton from "../OpenModalButton/OpenModalButton"
 import UpdateExpenseModal from "../CreateExpense/UpdateExpenseModal"
+import './ExpenseDetails.css'
 
 export default function ExpenseDetails() {
     const dispatch = useDispatch()
@@ -27,13 +28,17 @@ export default function ExpenseDetails() {
     }
 
     return (
-        <div>
-            <h4>{expense?.description}</h4>
-            <p>{expense?.category}</p>
-            <p>${expense?.amount}</p>
-            <p>{group?.name}</p>
-            <button onClick={(e) => handleDelete(e)}>Delete</button>
-            <OpenModalButton modalComponent={<UpdateExpenseModal expense={expense} userId={user.id}/>} buttonText={'Update'} />
+        <div className="expenseDetailsPage">
+            <div className="expenseDetailsContainer">
+                <h1>{expense?.description}</h1>
+                <p>Category: {expense?.category}</p>
+                <p>Amount: ${expense?.amount}</p>
+                <p>Group: {group?.name}</p>
+                <div className="buttonsContainer">
+                    <OpenModalButton modalComponent={<UpdateExpenseModal expense={expense} userId={user.id} />} buttonText={'Update'} />
+                    <button id='deleteButton' onClick={(e) => handleDelete(e)}>Delete</button>
+                </div>
+            </div>
         </div>
     )
 }

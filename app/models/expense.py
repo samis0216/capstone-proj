@@ -7,7 +7,7 @@ class Expense(db.Model) :
 
     id = db.Column(db.Integer, primary_key=True)
     category = db.Column(db.String, nullable=False)
-    description =db.Column(db.String, nullable=False)
+    description =db.Column(db.String(20), nullable=False)
     amount = db.Column(db.Float, nullable=False)
     payer_id =db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     group_id =db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('groups.id')), nullable=True)
