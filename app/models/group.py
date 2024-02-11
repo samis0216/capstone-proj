@@ -17,3 +17,6 @@ class Group(db.Model):
             'organizer_id': self.organizer_id,
             'group_pic_url': self.group_pic_url,
         }
+
+    expenses = db.relationship('Expense', backref='group', cascade="all, delete-orphan")
+    members = db.relationship('GroupMember', backref='group', cascade="all, delete-orphan")

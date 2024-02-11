@@ -4,15 +4,32 @@
 }
 
 .profile-dropdown {
-  position: absolute;
+  position:absolute;
   top: 54px;
-  right: 318px;
+  right: 350px;
+  width: 100px;
+  border: 1px solid grey;
+  background-color: white;
+  list-style-type: none;
 }
 
 .navBar {
   display: flex;
   justify-content: space-around;
-  background-color: #5BC5A6;
-  border: #5BC5A6 solid 2px;
+  background-color: #f9d03b;
+  border: #f9d03b solid 2px;
   width: 100%;
+  height: 35px;
+  align-items: center;
+  padding: 3px;
+}
+
+.landingBar {
+  display: flex;
+  justify-content: space-around;
+  background-color: white;
+  width: 100%;
+  height: 35px;
+  align-items: center;
+  margin-top: 10px;
 }

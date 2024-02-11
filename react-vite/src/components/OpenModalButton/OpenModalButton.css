@@ -1,0 +1,44 @@
+.signUpButton {
+    width: 96px;
+    height: 40px;
+    font-size: 14px;
+    color: white;
+    background-color: #f9d03b;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 2px 0 0 rgba(55,59,63,0.5);
+    cursor: pointer;
+}
+
+.logInButton {
+    width: 96px;
+    height: 40px;
+    font-size: 14px;
+    color: black;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+.signUpButtonLarge {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9d03b;
+    border-radius: 5px;
+    border: none;
+    width: 191px;
+    height: 56px;
+    box-shadow: 0 2px 0 0 rgba(55,59,63,0.5);
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.logInButtonLarge:active {
+    box-shadow: none;
+}
+
+.signUpButton:active {
+    box-shadow: none;
+}
