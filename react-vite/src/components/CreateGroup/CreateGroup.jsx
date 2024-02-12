@@ -42,9 +42,8 @@ export default function CreateGroup() {
             form.append('organizer_id', user.id)
             form.append('group_pic_url', imageUrl)
             setAwsLoading(true);
-            dispatch(createGroupThunk(user.id, form));
-            setErrors('')
-            navigate(`/dashboard`)
+            const newGroup = await dispatch(createGroupThunk(user.id, form));
+            navigate(`/groups/${newGroup.id}`)
         }
     }
 
