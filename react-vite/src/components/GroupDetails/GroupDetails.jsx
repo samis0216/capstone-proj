@@ -42,20 +42,19 @@ export default function GroupDetails() {
                     <img src={group.group_pic_url} alt="group_image" className="groupPics" />
                     <h1>{group.name}</h1>
                     <div className="buttonsContainer">
-                        <OpenModalButton modalComponent={<UpdateGroup group={group} user={user} />} buttonText={'Update'} />
-                        <button id='deleteButton' onClick={(e) => handleDelete(e)}>Delete</button>
+                        <OpenModalButton modalComponent={<UpdateGroup group={group} user={user} />} buttonText={'Update'} buttonStyle={'updateButton'}/>
+                        <button id='deleteButton' className='deleteButton' onClick={(e) => handleDelete(e)}>Delete</button>
                     </div>
                 </div>
                 <div className="expensesMembersContainer">
                     <div className="groupExpensesContainer">
-                        <h3>Expenses</h3>
+                        <h3 className="membersContainer">Expenses</h3>
                         {expenses.map(expense => (
                             <ExpenseTile key={expense.id} expense={expense} />
                         ))}
                     </div>
-                    <div className='membersContainer'>
-                        <h3>Members</h3>
-                        <hr />
+                    <div className='membersContainer' style={{borderLeft: 1, }}>
+                        <h3 style={{borderBottom: '1px solid #DDDDDD'}}>Members</h3>
                         {Object.values(groupMembers).map(member => (
                             <div key={member.id}>
                                 <p>{member.name}</p>

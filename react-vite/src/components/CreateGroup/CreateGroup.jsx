@@ -72,6 +72,7 @@ export default function CreateGroup() {
                         <div className="groupMembersContainer">
                             <hr />
                             <p>GROUP MEMBERS</p>
+                            <p style={{fontStyle: "italic"}}>(group member feature coming soon...)</p>
                             <div className="groupMembers">
                                 <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png' alt="" style={{ width: 26 }} />
                                 <input type="text" style={{width: 118}}/>

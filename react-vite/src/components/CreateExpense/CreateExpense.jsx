@@ -70,13 +70,13 @@ function CreateExpense() {
         <div className="createExpenseMain">
             <form className="createExpenseForm">
                 <h1>Add an Expense</h1>
-                {submitted && errors.description && <p style={{ color: 'red' }}>{errors.description}</p>}
-                <label htmlFor="">
-                    Description
+                <div style={{ display: "flex", flexDirection: "column", width: 400 }}>
+                    <label style={{ display: 'flex' }}>
+                        Description {submitted && errors.description && <p style={{ color: 'red', marginLeft: 5 }}>{errors.description}</p>}
+                    </label>
                     <input type="text" onChange={(e) => setDescription(e.target.value)} />
-                </label>
-                {submitted && errors.category && <p style={{ color: 'red' }}>{errors.category}</p>}
-                <p>Category</p>
+                </div>
+                <p style={{display: 'flex'}}>Expense Category {submitted && errors.category && <p style={{ color: 'red', marginLeft: 5}}>{errors.category}</p>}</p>
                 <div className="categoryHolder">
                     <div className="categoryOption" id={category == 'Food' ? 'selected' : 'not'} onClick={() => {
                         setCategory('Food')
@@ -93,28 +93,34 @@ function CreateExpense() {
                     <div className="categoryOption" id={category == 'Living Expenses' ? 'selected' : 'not'} onClick={() => {
                         setCategory('Living Expenses')
                     }}>
+                        <i className="fa-solid fa-couch" style={{color: "#ffffff"}}></i>
                         <p>Living Expenses</p>
                     </div>
                     <div className="categoryOption" id={category == 'Other' ? 'selected' : 'not'} onClick={() => {
                         setCategory('Other')
                     }}>
+                        <i className="fa-solid fa-asterisk" style={{color: "#ffffff"}}></i>
                         <p>Other</p>
                     </div>
                 </div>
-                {submitted && errors.amount && <p style={{ color: 'red' }}>{errors.amount}</p>}
-                <label htmlFor="">
-                    Amount
+                <div style={{ display: "flex", flexDirection: "column", width: 400 }}>
+                    <label style={{ display: "flex", width: 400 }}>
+                        Amount
+                        {submitted && errors.amount && <p style={{ color: 'red', marginLeft: 5 }}>{errors.amount}</p>}
+                    </label>
                     <input type="number" onChange={(e) => setAmount(e.target.value)} />
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", width: 400 }}>
+                <label style={{ display: "flex", width: 400 }}>Group
+                {submitted && errors.groupId && <p style={{ color: 'red', marginLeft: 5}}>{errors.groupId}</p>}
                 </label>
-                {submitted && errors.groupId && <p style={{ color: 'red' }}>{errors.groupId}</p>}
-                <label htmlFor="">Group
                     <select name="" id="" onChange={(e) => setGroupId(e.target.value)}>
                         <option disabled={false}>(select option)</option>
                         {userGroups?.map(group => (
                             <option key={group.id} value={group.id} onClick={(e) => setGroupId(e.target.value)}>{group.name}</option>
                         ))}
                     </select>
-                </label>
+                </div>
                 <button onClick={(e) => handleSubmit(e)}>Submit</button>
             </form>
         </div>

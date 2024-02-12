@@ -38,12 +38,19 @@
 .buttonsContainer {
     display: flex;
     gap: 10px;
+    padding: 5px;
 }
 
 #deleteButton {
     width: 100px;
-    height: 25px;
+    height: 35px;
     background-color: #FF6430;
     color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 0 0 rgba(55,59,63,0.5);
+}
 
+#deleteButton:active {
+    box-shadow: none;
+    cursor: pointer;
 }

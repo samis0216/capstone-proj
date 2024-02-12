@@ -35,7 +35,7 @@ export default function ExpenseDetails() {
                 <p>Amount: ${expense?.amount}</p>
                 <p>Group: {group?.name}</p>
                 <div className="buttonsContainer">
-                    <OpenModalButton modalComponent={<UpdateExpenseModal expense={expense} userId={user.id} />} buttonText={'Update'} />
+                    <OpenModalButton modalComponent={<UpdateExpenseModal expense={expense} userId={user.id} />} buttonText={'Update'} buttonStyle={'updateButton'}/>
                     <button id='deleteButton' onClick={(e) => handleDelete(e)}>Delete</button>
                 </div>
             </div>

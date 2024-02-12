@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 53a8ea5ccbe8
+Revision ID: e700bba35cc6
 Revises:
-Create Date: 2024-02-07 23:20:09.893715
+Create Date: 2024-02-11 23:24:28.312073
 
 """
 from alembic import op
@@ -13,7 +13,7 @@ SCHEMA = os.environ.get("SCHEMA")
 
 
 # revision identifiers, used by Alembic.
-revision = '53a8ea5ccbe8'
+revision = 'e700bba35cc6'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -73,11 +73,10 @@ def upgrade():
     # ### end Alembic commands ###
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE albums SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE playlists SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE songs SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE playlist_songs SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE song_likes SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE groups SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE expenses SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE group_members SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE expense_details SET SCHEMA {SCHEMA};")
 
 
 def downgrade():

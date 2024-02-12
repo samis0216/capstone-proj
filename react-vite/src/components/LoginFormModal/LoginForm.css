@@ -1,0 +1,34 @@
+.loginModal {
+    display: flex;
+    width: 300px;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 50px;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+}
+
+.loginLabels {
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.logInSubmit {
+    margin-top: 15px;
+    height: 30px;
+    background-color: #f9d03b;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 0 0;
+    cursor: pointer;
+}
+
+.logInSubmit:active {
+    box-shadow: none;
+}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkSignup } from "../../redux/session";
@@ -14,9 +14,34 @@ function SignupFormModal() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
+  const [submitted, setSubmitted] = useState(false)
+
+  useEffect(()=> {
+
+    const newErrors = {}
+    if (!email) {
+      newErrors.email = 'Email is required.'
+    }
+    if (!username) {
+      newErrors.username = 'Username is required.'
+    }
+    if (!password) {
+      newErrors.password = 'Password is required.'
+    }
+    if (!confirmPassword) {
+      newErrors.confirmPassword = 'Please confirm password.'
+    }
+    if (password !== confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match. Try again.'
+    }
+
+    setErrors(newErrors)
+  }, [username, email, password, confirmPassword])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setSubmitted(true)
 
     if (password !== confirmPassword) {
       return setErrors({
@@ -42,53 +67,51 @@ function SignupFormModal() {
   };
 
   return (
-    <>
-      <h1>Sign Up</h1>
+    <div className="signUpModal">
+      <h1>Welcome!</h1>
+      <p>Please input the following information to sign up.</p>
       {errors.server && <p>{errors.server}</p>}
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+      <form className='signUpForm' onSubmit={handleSubmit}>
+        <label className="signUpLabels">
+          Email {submitted && errors.email && <p style={{color: 'red'}}>{errors.email}</p>}
         </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
-          Username
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+        <input
+          type="text"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+
+        <label className="signUpLabels">
+          Username {submitted && errors.username && <p style={{color: 'red'}}>{errors.username}</p>}
         </label>
-        {errors.username && <p>{errors.username}</p>}
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+        <label className="signUpLabels">
+          Password {submitted && errors.password && <p style={{color: 'red'}}>{errors.password}</p>}
         </label>
-        {errors.password && <p>{errors.password}</p>}
-        <label>
-          Confirm Password
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <label className="signUpLabels">
+          Confirm Password {submitted && errors.confirmPassword && <p style={{color: 'red'}}>{errors.confirmPassword}</p>}
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
+        <input
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required
+        />
       </form>
-    </>
+      <button className='signUpButton' type="submit" onClick={(e)=> handleSubmit(e)}>Sign Up</button>
+    </div>
   );
 }
 

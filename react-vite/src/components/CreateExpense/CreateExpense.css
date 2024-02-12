@@ -27,12 +27,12 @@
     justify-content: center;
     height: 100px;
     width: 120px;
-    border: #50c2a0 solid 1px;
+    border: #F9CF3C solid 1px;
     gap: 10px;
     color: white;
-    background-color: #5BC5A6;
+    background-color: #F9CF3C;
     border-radius: 8px;
-    box-shadow: 0 0 0 3px #43947c;
+    box-shadow: 0 0 0 3px #a48822;
 }
 
 .categoryOption:hover {
