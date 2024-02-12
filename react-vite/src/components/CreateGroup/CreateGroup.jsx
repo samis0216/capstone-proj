@@ -49,7 +49,7 @@ export default function CreateGroup() {
 
     return (
         <div className="createGroupPage">
-            <div className="createGroupContainer" >
+            <form className="createGroupContainer" encType="multipart/form-data">
                 <div className="imageUpload">
                     <img src="https://assets.splitwise.com/assets/core/logo-square-65a6124237868b1d2ce2f5db2ab0b7c777e2348b797626816400534116ae22d7.svg" alt="" style={{ width: 200 }} />
                     <input type="file" accept="image/*" onChange={(e) => {
@@ -92,7 +92,7 @@ export default function CreateGroup() {
                     <button style={{ width: 316, alignSelf: "center" }} disabled={Object.values(errors).length} onClick={(e)=> handleSubmit(e)}>Submit</button>
                     {(awsLoading) && <p className="loading-text">Loading...</p>}
                 </div>
-            </div>
+            </form>
         </div>
     )
 }

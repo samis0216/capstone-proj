@@ -15,7 +15,7 @@ export default function UpdateGroup({ group, user }) {
     const [submitted, setSubmitted] = useState(false)
     const [awsLoading, setAwsLoading] = useState(false)
 
-    useEffect(()=> {
+    useEffect(() => {
         const newErrors = {}
         if (!name) {
             newErrors.name = 'Group name is required'
@@ -28,7 +28,7 @@ export default function UpdateGroup({ group, user }) {
         setErrors(newErrors)
     }, [name, group.group_pic_url])
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
         setSubmitted(true)
@@ -48,31 +48,33 @@ export default function UpdateGroup({ group, user }) {
     }
 
     return (
-        <div className="updateGroupModal">
-            <h1>Update &quot;{group.name}&quot;</h1>
-            <p style={{fontStyle: "italic"}}>Image will remain the same if no image is uploaded.</p>
-            <div style={{display: "flex", alignItems: 'center', padding: 20}}>
-                <div className="imageInput">
-                    <img src="https://assets.splitwise.com/assets/core/logo-square-65a6124237868b1d2ce2f5db2ab0b7c777e2348b797626816400534116ae22d7.svg" alt="" style={{ width: 200 }} />
-                    <label htmlFor="">
-                        Image
-                        <input type="file" accept="image/*" onChange={(e) => {
-                            setImageURL(e.target.files[0])
-                            console.log(e.target.files[0])
-                        }
-                        } />
-                    </label>
+        <div>
+            <form encType="multipart/form-data" className="updateGroupModal">
+                <h1>Update &quot;{group.name}&quot;</h1>
+                <p style={{ fontStyle: "italic" }}>Image will remain the same if no image is uploaded.</p>
+                <div style={{ display: "flex", alignItems: 'center', padding: 20 }}>
+                    <div className="imageInput">
+                        <img src="https://assets.splitwise.com/assets/core/logo-square-65a6124237868b1d2ce2f5db2ab0b7c777e2348b797626816400534116ae22d7.svg" alt="" style={{ width: 200 }} />
+                        <label htmlFor="">
+                            Image
+                            <input type="file" accept="image/*" onChange={(e) => {
+                                setImageURL(e.target.files[0])
+                                console.log(e.target.files[0])
+                            }
+                            } />
+                        </label>
+                    </div>
+                    <div>
+                        {submitted && errors.name && <p style={{ color: 'red' }}>{errors.name}</p>}
+                        <label htmlFor="">
+                            Group Name
+                            <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+                        </label>
+                    </div>
                 </div>
-                <div>
-                {submitted && errors.name && <p style={{color: 'red'}}>{errors.name}</p>}
-                <label htmlFor="">
-                    Group Name
-                    <input type="text" value={name} onChange={(e)=> setName(e.target.value)}/>
-                </label>
-                </div>
-            </div>
-            <button onClick={(e)=> handleSubmit(e)}>Submit</button>
-            {(awsLoading) && <p className="loading-text">Loading...</p>}
+                <button onClick={(e) => handleSubmit(e)}>Submit</button>
+                {(awsLoading) && <p className="loading-text">Loading...</p>}
+            </form>
         </div>
     )
 }
