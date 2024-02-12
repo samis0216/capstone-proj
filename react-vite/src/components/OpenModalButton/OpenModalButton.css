@@ -42,3 +42,37 @@
 .signUpButton:active {
     box-shadow: none;
 }
+
+.updateButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9d03b;
+    border-radius: 5px;
+    width: 100px;
+    height: 35px;
+    box-shadow: 0 2px 0 0 rgba(55,59,63,0.5);
+    color: white;
+}
+
+.updateButton:active {
+    cursor: pointer;
+    box-shadow: 0;
+}
+
+.deleteButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000000;
+    border-radius: 5px;
+    width: 191px;
+    height: 56px;
+    box-shadow: 0 2px 0 0 rgba(55,59,63,0.5);
+    color: white;
+}
+
+.deleteButton:active {
+    cursor: pointer;
+    box-shadow: 0;
+}

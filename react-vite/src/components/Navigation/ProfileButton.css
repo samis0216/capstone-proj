@@ -1,0 +1,20 @@
+.profileButtonBro {
+    background-color: #f9d03b;
+    border: none;
+    color: white;
+    font-size: 16px;
+}
+
+.createGroupButtonMenu {
+    display: flex;
+    border: none;
+    font-size: 14px;
+    background-color: white;
+    width: 100%;
+    cursor: pointer;
+    padding: 2px;
+}
+
+.createGroupButtonMenu:hover {
+    background-color: rgb(203, 203, 203);
+}

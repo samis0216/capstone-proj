@@ -5,12 +5,14 @@
 
 .profile-dropdown {
   position:absolute;
-  top: 54px;
-  right: 350px;
-  width: 100px;
+  right: 300px;
+  top: 45px;
+  width: 130px;
   border: 1px solid grey;
   background-color: white;
   list-style-type: none;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 .navBar {

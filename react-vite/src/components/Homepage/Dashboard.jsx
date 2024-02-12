@@ -50,8 +50,8 @@ export default function Dashboard() {
                     <div className="middle-heading">
                         <h2>Dashboard</h2>
                         <div className="dashButtons">
-                            <button style={{ backgroundColor: '#FF6430', color: "white" }} onClick={() => navigate('/expenses/new')}>Add an Expense</button>
-                            <button style={{ backgroundColor: '#5BC5A6', color: "white" }}>Settle Up</button>
+                            <button style={{ backgroundColor: '#FF6430', color: "white", cursor: "pointer"  }} onClick={() => navigate('/expenses/new')}>Add an Expense</button>
+                            <button style={{ backgroundColor: '#5BC5A6', color: "white", cursor: "pointer" }} onClick={()=> alert('Feature coming soon...')}>Settle Up</button>
                         </div>
                     </div>
                     <div>
