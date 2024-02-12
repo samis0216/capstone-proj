@@ -21,12 +21,12 @@ export default function UpdateGroup({ group, user }) {
             newErrors.name = 'Group name is required'
         }
 
-        if (!imageUrl) {
-            setImageURL(group.group_pic_url)
-        }
+        // if (!imageUrl) {
+        //     setImageURL(group.group_pic_url)
+        // }
 
         setErrors(newErrors)
-    }, [name, group.group_pic_url])
+    }, [name])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -51,9 +51,9 @@ export default function UpdateGroup({ group, user }) {
         <div>
             <form encType="multipart/form-data" className="updateGroupModal">
                 <h1>Update &quot;{group.name}&quot;</h1>
-                <p style={{ fontStyle: "italic" }}>Image will remain the same if no image is uploaded.</p>
+                {/* <p style={{ fontStyle: "italic" }}>Image will remain the same if no image is uploaded.</p> */}
                 <div style={{ display: "flex", alignItems: 'center', padding: 20 }}>
-                    <div className="imageInput">
+                    {/* <div className="imageInput">
                         <img src="https://assets.splitwise.com/assets/core/logo-square-65a6124237868b1d2ce2f5db2ab0b7c777e2348b797626816400534116ae22d7.svg" alt="" style={{ width: 200 }} />
                         <label htmlFor="">
                             Image
@@ -63,11 +63,11 @@ export default function UpdateGroup({ group, user }) {
                             }
                             } />
                         </label>
-                    </div>
+                    </div> */}
                     <div>
                         {submitted && errors.name && <p style={{ color: 'red' }}>{errors.name}</p>}
-                        <label htmlFor="">
-                            Group Name
+                        <label style={{display: "flex"}}>
+                            New Group Name:
                             <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
                         </label>
                     </div>

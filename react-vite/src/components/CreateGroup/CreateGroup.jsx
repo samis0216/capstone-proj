@@ -8,7 +8,7 @@ export default function CreateGroup() {
     const dispatch = useDispatch();
     const navigate = useNavigate()
     const [name, setName] = useState('')
-    const [imageUrl, setImageURL] = useState('')
+    // const [imageUrl, setImageURL] = useState("https://cdn.pixabay.com/photo/2020/05/29/13/26/icons-5235125_1280.png")
     const [errors, setErrors] = useState({});
     const [display, setDisplay] = useState(false)
     const [awsLoading, setAwsLoading] = useState(false)
@@ -23,12 +23,12 @@ export default function CreateGroup() {
             newErrors.name = 'Group name is required'
         }
 
-        if (!imageUrl) {
-            newErrors.imageUrl = 'Please upload a group profile picture.'
-        }
+        // if (!imageUrl) {
+        //     newErrors.imageUrl = 'Please upload a group profile picture.'
+        // }
 
         setErrors(newErrors)
-    }, [name, imageUrl])
+    }, [name])
 
     const handleSubmit = async (e) => {
 
@@ -40,7 +40,7 @@ export default function CreateGroup() {
             const form = new FormData()
             form.append('name', name)
             form.append('organizer_id', user.id)
-            form.append('group_pic_url', imageUrl)
+            form.append('group_pic_url', "https://cdn.pixabay.com/photo/2020/05/29/13/26/icons-5235125_1280.png")
             setAwsLoading(true);
             const newGroup = await dispatch(createGroupThunk(user.id, form));
             navigate(`/groups/${newGroup.id}`)
@@ -50,7 +50,7 @@ export default function CreateGroup() {
     return (
         <div className="createGroupPage">
             <form className="createGroupContainer" encType="multipart/form-data">
-                <div className="imageUpload">
+                {/* <div className="imageUpload">
                     <img src="https://assets.splitwise.com/assets/core/logo-square-65a6124237868b1d2ce2f5db2ab0b7c777e2348b797626816400534116ae22d7.svg" alt="" style={{ width: 200 }} />
                     <input type="file" accept="image/*" onChange={(e) => {
                                 setImageURL(e.target.files[0])
@@ -58,7 +58,7 @@ export default function CreateGroup() {
                                 }
                             }/>
                     {submitted && errors.imageUrl && <p>{errors.imageUrl}</p>}
-                </div>
+                </div> */}
                 <div className="infoContainer">
                     <p>START A NEW GROUP</p>
                     <h4>My group shall be called...</h4>

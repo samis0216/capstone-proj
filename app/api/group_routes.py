@@ -11,13 +11,13 @@ group_routes = Blueprint('group', __name__)
 def updateGroup(id):
     group = Group.query.get(id)
     form = GroupForm()
-    print(form.data)
-    form.group_pic_url.data.filename = get_unique_filename_img(form.group_pic_url.data.filename)
+    # form.group_pic_url.data.filename = get_unique_filename_img(form.group_pic_url.data.filename)
     form['csrf_token'].data = request.cookies['csrf_token']
+    print(form.data)
     if form.validate_on_submit():
         data = form.data
         group.name = data['name']
-        group.group_pic_url=upload_img_to_s3(form.group_pic_url.data).get("url")
+        # group.group_pic_url=upload_img_to_s3(form.group_pic_url.data).get("url")
         db.session.commit()
         return group.to_dict()
 
