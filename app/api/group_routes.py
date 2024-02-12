@@ -11,6 +11,7 @@ group_routes = Blueprint('group', __name__)
 def updateGroup(id):
     group = Group.query.get(id)
     form = GroupForm()
+    print(form.data)
     form.group_pic_url.data.filename = get_unique_filename_img(form.group_pic_url.data.filename)
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():

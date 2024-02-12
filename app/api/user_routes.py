@@ -52,6 +52,7 @@ def createGroup(id):
             organizer_id=id,
             group_pic_url=upload_img_to_s3(form.group_pic_url.data).get("url")
         )
+        print(newGroup)
         db.session.add(newGroup)
         db.session.commit()
         return newGroup.to_dict()
