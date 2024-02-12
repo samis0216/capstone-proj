@@ -18,8 +18,12 @@ export default function UpdateGroup({ group, user }) {
             newErrors.name = 'Group name is required'
         }
 
+        if (!imageUrl) {
+            setImageURL(group.group_pic_url)
+        }
+
         setErrors(newErrors)
-    }, [name])
+    }, [name, group.group_pic_url])
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -31,6 +35,7 @@ export default function UpdateGroup({ group, user }) {
             const form = new FormData()
             form.append('name', name)
             form.append('organizer_id', user.id)
+            if (!imageUrl) setImageURL(group.group_pic_url)
             form.append('group_pic_url', imageUrl)
             dispatch(updateGroupThunk(group.id, form))
             closeModal()
