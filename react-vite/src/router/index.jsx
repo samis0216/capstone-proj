@@ -7,6 +7,7 @@ import CreateGroup from '../components/CreateGroup/CreateGroup';
 import GroupDetails from '../components/GroupDetails/GroupDetails';
 import CreateExpense from '../components/CreateExpense/CreateExpense';
 import ExpenseDetails from '../components/ExpenseDetails/ExpenseDetails'
+import LandingPage from '../components/LandingPage/LandingPage'
 
 export const router = createBrowserRouter([
   {
@@ -14,7 +15,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <h1>Hello</h1>,
+        element: <LandingPage />,
       },
       {
         path: '/dashboard',

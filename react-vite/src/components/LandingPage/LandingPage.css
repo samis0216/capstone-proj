@@ -1,0 +1,94 @@
+.landingPage {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.middleContent {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.firstBlock {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 10px 50%;
+    gap: 30px;
+}
+
+.leftContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: fit-content;
+    gap: 40px;
+    width: 500px;
+}
+
+.iconsDiv {
+    display: flex;
+    gap: 10px;
+}
+
+.landingSignUp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9d03b;
+    border-radius: 5px;
+    width: 191px;
+    height: 56px;
+    box-shadow: 0 2px 0 0 rgba(55,59,63,0.5);
+    color: white;
+}
+
+.landingSignUp:hover {
+    box-shadow: none;
+    cursor: pointer;
+}
+
+.imgContainer {
+    width: fit-content;
+    height: 500px;
+}
+
+.bottomContentLanding {
+    display: flex;
+}
+.TrackBalances1 {
+    background: repeating-linear-gradient(45deg, #393D40 2px, #222 3px, #222 4px, #393D40 7px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    width: 50%;
+}
+
+.OrganizeExpenses {
+    background: repeating-linear-gradient(-45deg, #f9d03b 2px, #d4b649 3px, #f9d03b 4px, #f9d03b 7px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    width: 50%;
+}
+
+.bottomTextImage {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.phoneImgs {
+    width: 360px;
+}
+
+footer {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

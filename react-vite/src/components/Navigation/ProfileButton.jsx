@@ -4,9 +4,12 @@ import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import { useNavigate } from "react-router-dom";
+import './ProfileButton.css'
 
 function ProfileButton() {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);
   const ulRef = useRef();
@@ -36,21 +39,24 @@ function ProfileButton() {
     e.preventDefault();
     dispatch(thunkLogout());
     closeMenu();
+    navigate('/')
+
   };
 
   return (
     <>
-      <button onClick={toggleMenu}>
-        <i className="fas fa-user-circle" />
+      <button className='profileButtonBro' onClick={toggleMenu}>
+        {user?.username} <i className="fa-solid fa-chevron-down"></i>
       </button>
       {showMenu && (
         <ul className={"profile-dropdown"} ref={ulRef}>
           {user ? (
             <>
-              <li>{user.username}</li>
-              <li>{user.email}</li>
+              <div className="createGroupButtonMenu" onClick={()=> alert('Feature coming soon...')}>Your profile</div>
+              <div className='createGroupButtonMenu' onClick={()=> {navigate('/groups/new')
+            closeMenu()}}>Create new group</div>
               <li>
-                <button onClick={logout}>Log Out</button>
+                <button className='createGroupButtonMenu' onClick={logout}>Log Out</button>
               </li>
             </>
           ) : (

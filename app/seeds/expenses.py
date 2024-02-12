@@ -7,17 +7,23 @@ from sqlalchemy.sql import text
 def seed_expenses():
     skitrip = Expense(category='Entertainment', description='Ski Lift Tickets', payer_id=1, group_id=1, amount=361)
     skitrip2 = Expense(category='Food', description="Denny's", payer_id=1, group_id=1, amount=62)
+    skitrip3 = Expense(category='Living Expenses', description="AirBnB Payment", payer_id=1, group_id=1, amount=120)
     hawaii = Expense(category='Food', description="Seafood dinner", payer_id=2, group_id=2, amount=122)
     hawaii2 = Expense(category='Entertainment', description="Surf lessons", payer_id=2, group_id=2, amount=210)
-    gamblers= Expense(category='Other', description="super bowl bet", payer_id=3, group_id=3, amount=100)
-    gamblers2= Expense(category='Food', description="groceries", payer_id=3, group_id=3, amount=83)
+    hawaii3 = Expense(category='Living Expenses', description="Hotel", payer_id=2, group_id=2, amount=326)
+    gamblers= Expense(category='Other', description="Super Bowl Bet", payer_id=3, group_id=3, amount=100)
+    gamblers2= Expense(category='Food', description="In-n-Out", payer_id=3, group_id=3, amount=83)
+    gamblers3= Expense(category='Other', description="NBA Bets", payer_id=3, group_id=3, amount=875)
 
     db.session.add(skitrip)
     db.session.add(skitrip2)
+    db.session.add(skitrip3)
     db.session.add(hawaii)
     db.session.add(hawaii2)
+    db.session.add(hawaii3)
     db.session.add(gamblers)
     db.session.add(gamblers2)
+    db.session.add(gamblers3)
     db.session.commit()
 
 

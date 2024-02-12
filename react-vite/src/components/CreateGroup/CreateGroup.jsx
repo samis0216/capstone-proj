@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createGroupThunk } from "../../redux/groups";
 import "./CreateGroup.css";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateGroup() {
     const dispatch = useDispatch();
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
     const [name, setName] = useState('')
     const [imageUrl, setImageURL] = useState('')
     const [errors, setErrors] = useState({});
@@ -16,6 +16,19 @@ export default function CreateGroup() {
     const user = useSelector(state => state.session.user)
 
     console.log(awsLoading, submitted)
+
+    useEffect(()=> {
+        const newErrors = {}
+        if (!name) {
+            newErrors.name = 'Group name is required'
+        }
+
+        if (!imageUrl) {
+            newErrors.imageUrl = 'Please upload a group profile picture.'
+        }
+
+        setErrors(newErrors)
+    }, [name, imageUrl])
 
     const handleSubmit = async (e) => {
 
@@ -31,7 +44,7 @@ export default function CreateGroup() {
             setAwsLoading(true);
             dispatch(createGroupThunk(user.id, form));
             setErrors('')
-            // navigate(`/dashboard`)
+            navigate(`/dashboard`)
         }
     }
 
@@ -45,10 +58,12 @@ export default function CreateGroup() {
                                 console.log(e.target.files[0])
                                 }
                             }/>
+                    {submitted && errors.imageUrl && <p>{errors.imageUrl}</p>}
                 </div>
                 <div className="infoContainer">
                     <p>START A NEW GROUP</p>
                     <h4>My group shall be called...</h4>
+                    {submitted && errors.name && <p style={{color: 'red'}}>{errors.name}</p>}
                     <input type="text" onChange={(e) => {
                         setName(e.target.value)
                         setDisplay(true)
@@ -57,6 +72,7 @@ export default function CreateGroup() {
                         <div className="groupMembersContainer">
                             <hr />
                             <p>GROUP MEMBERS</p>
+                            <p style={{fontStyle: "italic"}}>(group member feature coming soon...)</p>
                             <div className="groupMembers">
                                 <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png' alt="" style={{ width: 26 }} />
                                 <input type="text" style={{width: 118}}/>
@@ -74,7 +90,8 @@ export default function CreateGroup() {
                             </div>
                         </div>
                     }
-                    <button style={{ width: 316, alignSelf: "center" }} onClick={(e)=> handleSubmit(e)}>Submit</button>
+                    <button style={{ width: 316, alignSelf: "center" }} disabled={Object.values(errors).length} onClick={(e)=> handleSubmit(e)}>Submit</button>
+                    {(awsLoading) && <p className="loading-text">Loading...</p>}
                 </div>
             </div>
         </div>
