@@ -3,16 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { createGroupThunk } from "../../redux/groups";
 import "./CreateGroup.css";
 import { useNavigate } from "react-router-dom";
+import { createGroupMemberThunk } from "../../redux/group_members";
 
 export default function CreateGroup() {
     const dispatch = useDispatch();
     const navigate = useNavigate()
     const [name, setName] = useState('')
-    // const [imageUrl, setImageURL] = useState("https://cdn.pixabay.com/photo/2020/05/29/13/26/icons-5235125_1280.png")
+    const [imageUrl, setImageURL] = useState('')
     const [errors, setErrors] = useState({});
     const [display, setDisplay] = useState(false)
     const [awsLoading, setAwsLoading] = useState(false)
     const [submitted, setSubmitted] = useState(false)
+    const [member1, setMember1] = useState({})
+    const [member2, setMember2] = useState({})
+    const [member3, setMember3] = useState({})
     const user = useSelector(state => state.session.user)
 
     console.log(awsLoading, submitted)
@@ -23,12 +27,12 @@ export default function CreateGroup() {
             newErrors.name = 'Group name is required'
         }
 
-        // if (!imageUrl) {
-        //     newErrors.imageUrl = 'Please upload a group profile picture.'
-        // }
+        if (!imageUrl) {
+            newErrors.imageUrl = 'Please upload a group profile picture.'
+        }
 
         setErrors(newErrors)
-    }, [name])
+    }, [name, imageUrl])
 
     const handleSubmit = async (e) => {
 
@@ -40,9 +44,30 @@ export default function CreateGroup() {
             const form = new FormData()
             form.append('name', name)
             form.append('organizer_id', user.id)
-            form.append('group_pic_url', "https://cdn.pixabay.com/photo/2020/05/29/13/26/icons-5235125_1280.png")
+            form.append('group_pic_url', imageUrl)
             setAwsLoading(true);
             const newGroup = await dispatch(createGroupThunk(user.id, form));
+
+            const form2 = new FormData()
+            form2.append('name', user.username)
+            form2.append('email', user.email)
+            form2.append('group_id', newGroup.id)
+            dispatch(createGroupMemberThunk(form2))
+
+            const members = []
+            for (let member of [member1, member2, member3]) {
+                if (member.name && member.email) {
+                    members.push(member)
+                }
+            }
+
+            for (let member of members) {
+                const form = new FormData()
+                form.append('name', member.name)
+                form.append('email', member.email)
+                form.append('group_id', newGroup.id)
+                dispatch(createGroupMemberThunk(form))
+            }
             navigate(`/groups/${newGroup.id}`)
         }
     }
@@ -50,15 +75,15 @@ export default function CreateGroup() {
     return (
         <div className="createGroupPage">
             <form className="createGroupContainer" encType="multipart/form-data">
-                {/* <div className="imageUpload">
-                    <img src="https://assets.splitwise.com/assets/core/logo-square-65a6124237868b1d2ce2f5db2ab0b7c777e2348b797626816400534116ae22d7.svg" alt="" style={{ width: 200 }} />
+                <div className="imageUpload">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3372/3372849.png" alt="" style={{ width: 200 }} />
                     <input type="file" accept="image/*" onChange={(e) => {
                                 setImageURL(e.target.files[0])
                                 console.log(e.target.files[0])
                                 }
                             }/>
                     {submitted && errors.imageUrl && <p>{errors.imageUrl}</p>}
-                </div> */}
+                </div>
                 <div className="infoContainer">
                     <p>START A NEW GROUP</p>
                     <h4>My group shall be called...</h4>
@@ -74,18 +99,18 @@ export default function CreateGroup() {
                             <p style={{fontStyle: "italic"}}>(group member feature coming soon...)</p>
                             <div className="groupMembers">
                                 <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png' alt="" style={{ width: 26 }} />
-                                <input type="text" style={{width: 118}}/>
-                                <input type="text" style={{width: 179.2}}/>
+                                <input type="text" style={{width: 118}} placeholder="Name" onChange={(e)=>setMember1({...member1, name: e.target.value})}/>
+                                <input type="text" style={{width: 179.2}} placeholder="Email" onChange={(e)=>setMember1({...member1, email: e.target.value})}/>
                             </div>
                             <div className="groupMembers">
                                 <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png' alt="" style={{ width: 26 }} />
-                                <input type="text" style={{width: 118}}/>
-                                <input type="text" style={{width: 179.2}}/>
+                                <input type="text" style={{width: 118}} placeholder="Name" onChange={(e)=>setMember2({...member2, name: e.target.value})}/>
+                                <input type="text" style={{width: 179.2}} placeholder="Email" onChange={(e)=>setMember2({...member2, email: e.target.value})}/>
                             </div>
                             <div className="groupMembers">
                                 <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png' alt="" style={{ width: 26 }} />
-                                <input type="text" style={{width: 118}}/>
-                                <input type="text" style={{width: 179.2}}/>
+                                <input type="text" style={{width: 118}} placeholder="Name" onChange={(e)=>setMember3({...member3, name: e.target.value})}/>
+                                <input type="text" style={{width: 179.2}} placeholder="Email" onChange={(e)=>setMember3({...member3, email: e.target.value})}/>
                             </div>
                         </div>
                     }

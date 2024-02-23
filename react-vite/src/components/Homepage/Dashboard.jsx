@@ -4,6 +4,9 @@ import { NavLink, useNavigate } from "react-router-dom"
 import { loadUserGroupsThunk } from "../../redux/groups"
 import './Dashboard.css'
 import { loadUserExpensesThunk } from "../../redux/expenses"
+import { ExpenseTile } from "../Tiles/ExpenseTile"
+import OpenModalButton from "../OpenModalButton/OpenModalButton"
+import CreatePaymentModal from '../CreatePaymentModal/CreatePaymentModal'
 
 export default function Dashboard() {
     const dispatch = useDispatch()
@@ -47,20 +50,16 @@ export default function Dashboard() {
                     </div>
                 </div>
                 <div className="middle-content">
-                    <div className="middle-heading">
+                    <div className="middle-heading" style={{borderBottom: '#DDDDDD solid 1px'}}>
                         <h2>Dashboard</h2>
                         <div className="dashButtons">
                             <button style={{ backgroundColor: '#FF6430', color: "white", cursor: "pointer"  }} onClick={() => navigate('/expenses/new')}>Add an Expense</button>
-                            <button style={{ backgroundColor: '#5BC5A6', color: "white", cursor: "pointer" }} onClick={()=> alert('Feature coming soon...')}>Settle Up</button>
+                            <OpenModalButton modalComponent={<CreatePaymentModal/>} buttonText={'Settle Up'} buttonStyle={'settleUp'}>Settle Up</OpenModalButton>
                         </div>
                     </div>
                     <div>
                         {expenses.map(expense => (
-                            <div key={expense.id} className="expense-tile" onClick={() => navigate(`/expenses/${expense.id}`)}>
-                                <h4>{expense.description}</h4>
-                                <p>{expense.category}</p>
-                                <p>${expense.amount}</p>
-                            </div>
+                            <ExpenseTile key={expense.id} expense={expense} user={user}/>
                         ))}
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 import './LandingPage.css'
 import OpenModalButton from '../OpenModalButton/OpenModalButton'
 import SignupFormModal from '../SignupFormModal'
+import { useNavigate } from 'react-router-dom'
 
 export default function LandingPage() {
     return (
@@ -49,8 +50,13 @@ export default function LandingPage() {
                 </div>
             </div>
             <footer>
-                <div>
+                <div style={{display: 'flex', flexDirection: 'column', gap: 10, alignItems: 'center'}}>
                     <p>Created by Sami Samman, inspired by Splitwise</p>
+                    <div style={{display: 'flex', justifyContent: 'space-evenly', width: 400}}>
+                        <a className='links' href="https://github.com/samis0216/capstone-proj"><i className="fa-brands fa-github"></i> Github</a>
+                        <a className='links' href="https://www.linkedin.com/in/sami-s-4a6a17129"><i className="fa-brands fa-linkedin" ></i> My LinkedIn</a>
+                        <a className='links' href="https://samis0216.github.io"><i className="fa-solid fa-briefcase"></i> My Portfolio</a>
+                    </div>
                 </div>
             </footer>
         </div>

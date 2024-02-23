@@ -9,12 +9,14 @@ import sessionReducer from "./session";
 import groupsReducer from "./groups"
 import expensesReducer from "./expenses";
 import groupMembersReducer from "./group_members"
+import expenseDetailsReducer from "./expense_details";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   groups: groupsReducer,
   expenses: expensesReducer,
-  groupMembers: groupMembersReducer
+  groupMembers: groupMembersReducer,
+  expenseDetails: expenseDetailsReducer
 });
 
 let enhancer;

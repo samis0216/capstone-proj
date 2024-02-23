@@ -8,6 +8,7 @@ import GroupDetails from '../components/GroupDetails/GroupDetails';
 import CreateExpense from '../components/CreateExpense/CreateExpense';
 import ExpenseDetails from '../components/ExpenseDetails/ExpenseDetails'
 import LandingPage from '../components/LandingPage/LandingPage'
+import CreatePayment from '../components/CreatePayment/CreatePayment';
 
 export const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ export const router = createBrowserRouter([
       {
         path: '/expenses/:expenseId',
         element: <ExpenseDetails />
+      },
+      {
+        path: '/payments/new',
+        element: <CreatePayment />
       }
     ],
   },

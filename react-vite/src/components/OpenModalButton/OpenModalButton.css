@@ -76,3 +76,9 @@
     cursor: pointer;
     box-shadow: 0;
 }
+
+.settleUp {
+    background-color: #5BC5A6;
+    color: white;
+    cursor: pointer;
+}

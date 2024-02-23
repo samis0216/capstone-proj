@@ -6,6 +6,8 @@ import { loadUserGroupsThunk } from "../../redux/groups"
 import OpenModalButton from "../OpenModalButton/OpenModalButton"
 import UpdateExpenseModal from "../CreateExpense/UpdateExpenseModal"
 import './ExpenseDetails.css'
+import { loadUserExpenseDetailsThunk } from "../../redux/expense_details"
+// import { loadGroupMembersThunk } from "../../redux/group_members"
 
 export default function ExpenseDetails() {
     const dispatch = useDispatch()
@@ -14,16 +16,25 @@ export default function ExpenseDetails() {
     const user = useSelector(state => state.session.user)
     const expense = useSelector(state => state.expenses[expenseId])
     const group = useSelector(state => state.groups[expense?.group_id])
+    const details = Object.values(useSelector(state=> state.expenseDetails))
+
+
+    // console.log(details)
 
     useEffect(() => {
         dispatch(loadOneExpenseThunk(expenseId))
         dispatch(loadUserGroupsThunk(user.id))
+        dispatch(loadUserExpenseDetailsThunk(2))
+        // dispatch(loadGroupMembersThunk(expense?.group_id))
     }, [dispatch])
 
     const handleDelete = (e) => {
         e.preventDefault()
-        const result = dispatch(deleteExpenseThunk(expenseId))
-        if (result) navigate('/dashboard')
+
+        if (window.confirm(`Are you sure you want to delete ${expense.description}?`)) {
+            const result = dispatch(deleteExpenseThunk(expenseId))
+            if (result) navigate('/dashboard')
+        }
 
     }
 
@@ -38,6 +49,10 @@ export default function ExpenseDetails() {
                     <OpenModalButton modalComponent={<UpdateExpenseModal expense={expense} userId={user.id} />} buttonText={'Update'} buttonStyle={'updateButton'}/>
                     <button id='deleteButton' onClick={(e) => handleDelete(e)}>Delete</button>
                 </div>
+                {/* <div style={{display: "flex", justifyContent: "space-between"}}>
+                    <p>Each Splitti:</p>
+                    <p>${expense?.amount / 4}</p>
+                </div> */}
             </div>
         </div>
     )

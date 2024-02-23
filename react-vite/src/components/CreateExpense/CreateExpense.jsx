@@ -10,7 +10,6 @@ import './CreateExpense.css'
 function CreateExpense() {
     const dispatch = useDispatch();
     const navigate = useNavigate()
-    // const [selected, setSelected] = useState('')
     const [category, setCategory] = useState('');
     const [description, setDescription] = useState("");
     const [amount, setAmount] = useState("");
@@ -70,13 +69,17 @@ function CreateExpense() {
         <div className="createExpenseMain">
             <form className="createExpenseForm">
                 <h1>Add an Expense</h1>
+                <div style={{ width: 700 }}>
+                    <hr style={{ display: "block" }} />
+                </div>
+                {/* <p style={{width: 600}}>Create a group expense. This will set you as the expense coverer and split the expense amount evenly among all in the selected group</p> */}
                 <div style={{ display: "flex", flexDirection: "column", width: 400 }}>
                     <label style={{ display: 'flex' }}>
                         Description {submitted && errors.description && <p style={{ color: 'red', marginLeft: 5 }}>{errors.description}</p>}
                     </label>
                     <input type="text" onChange={(e) => setDescription(e.target.value)} />
                 </div>
-                <p style={{display: 'flex'}}>Expense Category {submitted && errors.category && <p style={{ color: 'red', marginLeft: 5}}>{errors.category}</p>}</p>
+                <p style={{ display: 'flex' }}>Expense Category {submitted && errors.category && <p style={{ color: 'red', marginLeft: 5 }}>{errors.category}</p>}</p>
                 <div className="categoryHolder">
                     <div className="categoryOption" id={category == 'Food' ? 'selected' : 'not'} onClick={() => {
                         setCategory('Food')
@@ -93,27 +96,27 @@ function CreateExpense() {
                     <div className="categoryOption" id={category == 'Living Expenses' ? 'selected' : 'not'} onClick={() => {
                         setCategory('Living Expenses')
                     }}>
-                        <i className="fa-solid fa-couch" style={{color: "#ffffff"}}></i>
+                        <i className="fa-solid fa-couch" style={{ color: "#ffffff" }}></i>
                         <p>Living Expenses</p>
                     </div>
                     <div className="categoryOption" id={category == 'Other' ? 'selected' : 'not'} onClick={() => {
                         setCategory('Other')
                     }}>
-                        <i className="fa-solid fa-asterisk" style={{color: "#ffffff"}}></i>
+                        <i className="fa-solid fa-asterisk" style={{ color: "#ffffff" }}></i>
                         <p>Other</p>
                     </div>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", width: 400 }}>
                     <label style={{ display: "flex", width: 400 }}>
-                        Amount
+                        Amount ($)
                         {submitted && errors.amount && <p style={{ color: 'red', marginLeft: 5 }}>{errors.amount}</p>}
                     </label>
                     <input type="number" onChange={(e) => setAmount(e.target.value)} />
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", width: 400 }}>
-                <label style={{ display: "flex", width: 400 }}>Group
-                {submitted && errors.groupId && <p style={{ color: 'red', marginLeft: 5}}>{errors.groupId}</p>}
-                </label>
+                    <label style={{ display: "flex", width: 400 }}>Group
+                        {submitted && errors.groupId && <p style={{ color: 'red', marginLeft: 5 }}>{errors.groupId}</p>}
+                    </label>
                     <select name="" id="" onChange={(e) => setGroupId(e.target.value)}>
                         <option disabled={false}>(select option)</option>
                         {userGroups?.map(group => (
@@ -121,7 +124,7 @@ function CreateExpense() {
                         ))}
                     </select>
                 </div>
-                <button onClick={(e) => handleSubmit(e)}>Submit</button>
+                <button className='submitCreateExpense' onClick={(e) => handleSubmit(e)}>Create Expense</button>
             </form>
         </div>
     );
