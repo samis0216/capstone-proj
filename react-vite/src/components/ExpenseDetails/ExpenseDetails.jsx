@@ -16,7 +16,7 @@ export default function ExpenseDetails() {
     const user = useSelector(state => state.session.user)
     const expense = useSelector(state => state.expenses[expenseId])
     const group = useSelector(state => state.groups[expense?.group_id])
-    const details = Object.values(useSelector(state=> state.expenseDetails))
+    // const details = Object.values(useSelector(state=> state.expenseDetails))
 
 
     // console.log(details)

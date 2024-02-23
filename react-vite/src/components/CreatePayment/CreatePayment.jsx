@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import './CreatePayment.css'
 import { useEffect } from 'react'
-import { loadAllExpensesThunk, loadUserExpensesThunk } from '../../redux/expenses'
+import { loadAllExpensesThunk } from '../../redux/expenses'
 import { loadUserExpenseDetailsThunk } from '../../redux/expense_details'
 import { loadUserGroupsThunk } from '../../redux/groups'
 import { useNavigate } from 'react-router-dom'
@@ -22,13 +22,13 @@ export default function CreatePayment() {
     }, [dispatch])
 
     const handlePayment = (detail) => {
-        const expenseDetail = {
-            'id': detail.id,
-            'expense_id': detail.expense_id,
-            'contributer_id': detail.contributer_id,
-            'amount': detail.amount,
-            'settled': detail.settled
-        }
+        // const expenseDetail = {
+        //     'id': detail.id,
+        //     'expense_id': detail.expense_id,
+        //     'contributer_id': detail.contributer_id,
+        //     'amount': detail.amount,
+        //     'settled': detail.settled
+        // }
 
         dispatch(deleteDetailThunk(detail.id, user.id))
     }
@@ -37,11 +37,11 @@ export default function CreatePayment() {
         <div className="paymentPage">
             <div className="paymentHeader">
                 <h1>Create Payment</h1>
-                <p style={{padding: '5px'}}>Below is a list of your outstanding expense shares. Select 'Settle' to indicate a fulfilled payment.</p>
+                <p style={{padding: '5px'}}>Below is a list of your outstanding expense shares. Select &lsquo;Settle&lsquo; to indicate a fulfilled payment.</p>
             </div>
             <div className='detailTileContainer'>
                 {details.map(detail => (
-                    <div className='detailTile'>
+                    <div className='detailTile' key={detail.id}>
                         <div onClick={()=> navigate(`/expenses/${detail.expense_id}`)}>
                             <h4>{expenses?.[detail.expense_id]?.description}</h4>
                             <p>Your Share: ${detail.amount}</p>

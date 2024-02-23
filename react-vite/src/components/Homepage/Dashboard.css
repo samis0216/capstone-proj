@@ -59,6 +59,7 @@
     margin: 0 10 10 10px;
     padding: 10px;
     border-bottom: #DDDDDD solid 1px;
+    cursor: pointer;
 }
 
 .group-container {

@@ -1,7 +1,7 @@
 import './LandingPage.css'
 import OpenModalButton from '../OpenModalButton/OpenModalButton'
 import SignupFormModal from '../SignupFormModal'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 
 export default function LandingPage() {
     return (
@@ -26,7 +26,7 @@ export default function LandingPage() {
                     </div>
                 </div>
                 <div className='imgContainer'>
-                    <img src="https://www.pngall.com/wp-content/uploads/12/Asterisk-Mark-PNG-Images.png" alt="" style={{width: 500}}/>
+                    <a rel='noopener' href="https://docs.google.com/drawings/d/1At3-FvtezD5MWomvzLmviplDvMtk0cgr7laCCiBxSpE/edit?usp=sharing" target="_blank"><img src="https://cdn.dribbble.com/users/331175/screenshots/17830250/media/b850b34d5d83277a664dd5b016ea47a4.gif" style={{width: 550, marginTop: 30, border: 'white 1px solid'}}/></a>
                 </div>
             </div>
             <div className="bottomContentLanding">
@@ -53,9 +53,9 @@ export default function LandingPage() {
                 <div style={{display: 'flex', flexDirection: 'column', gap: 10, alignItems: 'center'}}>
                     <p>Created by Sami Samman, inspired by Splitwise</p>
                     <div style={{display: 'flex', justifyContent: 'space-evenly', width: 400}}>
-                        <a className='links' href="https://github.com/samis0216/capstone-proj"><i className="fa-brands fa-github"></i> Github</a>
-                        <a className='links' href="https://www.linkedin.com/in/sami-s-4a6a17129"><i className="fa-brands fa-linkedin" ></i> My LinkedIn</a>
-                        <a className='links' href="https://samis0216.github.io"><i className="fa-solid fa-briefcase"></i> My Portfolio</a>
+                        <a rel='noopener' className='links' href="https://github.com/samis0216/capstone-proj" target="_blank"><i className="fa-brands fa-github"></i> Github</a>
+                        <a rel='noopener' className='links' href="https://www.linkedin.com/in/sami-s-4a6a17129" target="_blank"><i className="fa-brands fa-linkedin" ></i> My LinkedIn</a>
+                        <a rel='noopener' className='links' href="https://samis0216.github.io" target="_blank"><i className="fa-solid fa-briefcase"></i> My Portfolio</a>
                     </div>
                 </div>
             </footer>

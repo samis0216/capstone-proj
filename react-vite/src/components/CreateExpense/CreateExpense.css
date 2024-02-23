@@ -58,6 +58,13 @@
     border-radius: 6px;
 }
 
+.submitCreateExpense:hover {
+    padding: 10px 20px;
+    margin-right: 0;
+    font-size: 14px;
+    transition: ease-out .3s;
+}
+
 .submitCreateExpense:active {
     box-shadow: none;
 }

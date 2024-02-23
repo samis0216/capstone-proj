@@ -72,7 +72,7 @@ export default function UpdateGroup({ group, user }) {
                         </label>
                     </div>
                 </div>
-                <button onClick={(e) => handleSubmit(e)}>Submit</button>
+                <button className='settleButtonTile'onClick={(e) => handleSubmit(e)}>Update</button>
                 {(awsLoading) && <p className="loading-text">Loading...</p>}
             </form>
         </div>

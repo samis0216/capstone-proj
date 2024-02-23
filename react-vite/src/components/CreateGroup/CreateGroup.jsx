@@ -96,7 +96,7 @@ export default function CreateGroup() {
                         <div className="groupMembersContainer">
                             <hr />
                             <p>GROUP MEMBERS</p>
-                            <p style={{fontStyle: "italic"}}>(group member feature coming soon...)</p>
+                            <p style={{fontStyle: "italic"}}>(do not include yourself)</p>
                             <div className="groupMembers">
                                 <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png' alt="" style={{ width: 26 }} />
                                 <input type="text" style={{width: 118}} placeholder="Name" onChange={(e)=>setMember1({...member1, name: e.target.value})}/>
@@ -114,7 +114,7 @@ export default function CreateGroup() {
                             </div>
                         </div>
                     }
-                    <button style={{ width: 316, alignSelf: "center" }} disabled={Object.values(errors).length} onClick={(e)=> handleSubmit(e)}>Submit</button>
+                    <button className='submitCreateExpense' style={{ width: 316, alignSelf: "center", backgroundColor: '#5BC5A6'}} disabled={Object.values(errors).length} onClick={(e)=> handleSubmit(e)}>Create Group</button>
                     {(awsLoading) && <p className="loading-text">Loading...</p>}
                 </div>
             </form>

@@ -19,6 +19,7 @@ def deleteDetail(id, userId):
     )
     if expense.amount == 0:
         db.session.delete(expense)
+    db.session.delete(detail)
     db.session.add(payment)
     db.session.commit()
     return {

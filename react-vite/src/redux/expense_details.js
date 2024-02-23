@@ -1,5 +1,5 @@
 const LOAD_EXPENSE_DETAILS = 'groups/loadExpenseDetails'
-const LOAD_ONE_EXPENSE_DETAIL = 'groups/loadOneExpenseDetail'
+// const LOAD_ONE_EXPENSE_DETAIL = 'groups/loadOneExpenseDetail'
 const DELETE_DETAIL = 'details/deleteDetail'
 
 const loadUserExpenseDetails = (expenseDetails) => {
@@ -9,12 +9,12 @@ const loadUserExpenseDetails = (expenseDetails) => {
     }
 }
 
-const loadOneExpenseDetail = (expenseDetail) => {
-    return {
-        type: LOAD_ONE_EXPENSE_DETAIL,
-        expenseDetail
-    }
-}
+// const loadOneExpenseDetail = (expenseDetail) => {
+//     return {
+//         type: LOAD_ONE_EXPENSE_DETAIL,
+//         expenseDetail
+//     }
+// }
 
 const deleteDetail = (id) => {
     return {
