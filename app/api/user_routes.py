@@ -2,7 +2,9 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from app.models import User, db
 from app.models.expense import Expense
+from app.models.expense_detail import ExpenseDetail
 from app.models.group import Group
+from app.models.payment import Payment
 from app.forms.expense_form import ExpenseForm
 from app.forms.group_form import GroupForm
 from app.api.aws_images import upload_img_to_s3, remove_img_from_s3, get_unique_filename_img
@@ -42,7 +44,7 @@ def oneGroup(id, groupId):
 @user_routes.route('/<int:id>/groups', methods=['POST'])
 def createGroup(id):
     form = GroupForm()
-    # form.group_pic_url.data.filename = get_unique_filename_img(form.group_pic_url.data.filename)
+    form.group_pic_url.data.filename = get_unique_filename_img(form.group_pic_url.data.filename)
     form['csrf_token'].data = request.cookies['csrf_token']
     print(form.data)
     if form.validate_on_submit():
@@ -50,8 +52,8 @@ def createGroup(id):
         newGroup = Group(
             name=data['name'],
             organizer_id=id,
-            # group_pic_url=upload_img_to_s3(form.group_pic_url.data).get("url")
-            group_pic_url = "https://cdn.pixabay.com/photo/2020/05/29/13/26/icons-5235125_1280.png"
+            group_pic_url=upload_img_to_s3(form.group_pic_url.data).get("url")
+            # group_pic_url = "https://cdn.pixabay.com/photo/2020/05/29/13/26/icons-5235125_1280.png"
         )
         print(newGroup)
         db.session.add(newGroup)
@@ -90,7 +92,15 @@ def postExpense(id):
 
 @user_routes.route('/<int:id>/expenses')
 def userExpenses(id):
-    return [expense.to_dict() for expense in Expense.query.filter(Expense.payer_id == id).all()]
+    owned = [expense.to_dict() for expense in Expense.query.filter(Expense.payer_id == id).all()]
+    partof = [Expense.query.get(expense.expense_id).to_dict() for expense in ExpenseDetail.query.filter(ExpenseDetail.contributer_id == id).all()]
+    for i in owned:
+        if i in partof:
+            continue
+        else:
+            partof.append(i)
+    return partof
+
 
 @user_routes.route('/expenses/<int:id>')
 def oneExpense(id):
@@ -104,3 +114,12 @@ def deleteExpense(id):
     db.session.delete(expense)
     db.session.commit()
     return 'Successfully deleted'
+
+@user_routes.route('/<int:id>/payments')
+def getPayments():
+    return [payment.to_dict() for payment in Payment.query.filter(Payment.payer_id == id).all()]
+
+@user_routes.route('/<int:id>/expenses/details')
+def getDetails(id):
+    details = [expense.to_dict() for expense in ExpenseDetail.query.filter(ExpenseDetail.contributer_id == id, ExpenseDetail.settled == False).all()]
+    return details

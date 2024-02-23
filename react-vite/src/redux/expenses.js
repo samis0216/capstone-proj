@@ -1,5 +1,6 @@
 const LOAD_EXPENSES = 'groups/loadExpenses'
 const LOAD_ONE_EXPENSE = 'groups/loadOneExpense'
+const LOAD_ALL_EXPENSES = 'groups/loadAllExpenses'
 const CREATE_EXPENSE = 'groups/createExpense'
 const UPDATE_EXPENSE = 'expense/updateExpense'
 const DELETE_EXPENSE = 'groups/deleteExpense'
@@ -8,6 +9,13 @@ const LOAD_GROUP_EXPENSES = 'groups/loadGroupExpenses'
 const loadUserExpenses = (expenses) => {
     return {
         type: LOAD_EXPENSES,
+        expenses
+    }
+}
+
+const loadAllExpenses = (expenses) => {
+    return {
+        type: LOAD_ALL_EXPENSES,
         expenses
     }
 }
@@ -53,6 +61,16 @@ export const loadUserExpensesThunk = (userId) => async(dispatch) => {
     if (res.ok) {
         const data = await res.json()
         dispatch(loadUserExpenses(data))
+        return data
+    }
+}
+
+export const loadAllExpensesThunk = () => async(dispatch) => {
+    const res = await fetch('/api/expenses/all')
+
+    if (res.ok) {
+        const data = await res.json()
+        dispatch(loadAllExpenses(data))
         return data
     }
 }
@@ -120,6 +138,13 @@ const initialState = {}
 const expensesReducer = (state=initialState, action) => {
     switch (action.type) {
         case LOAD_EXPENSES: {
+            const newState = {}
+            action.expenses.forEach(expense => {
+                newState[expense.id] = expense
+            })
+            return newState
+        }
+        case LOAD_ALL_EXPENSES: {
             const newState = {}
             action.expenses.forEach(expense => {
                 newState[expense.id] = expense

@@ -1,0 +1,53 @@
+.paymentModal {
+    width: 400px;
+}
+
+.paymentModalHeader {
+    background-color: #F9CF3C;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10px;
+    border-bottom: rgb(186, 152, 27) 1px solid;
+}
+
+.paymentModalMiddle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
+    margin: 15px;
+}
+
+.paymentOption {
+    width: 200px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+}
+
+#record {
+    background-color: #F9CF3C;
+
+}
+
+#venmo {
+    background-color: #FFFFFF;
+    border: 1px solid rgb(193, 193, 193)
+}
+
+#paypal {
+    background-color: #80BADF
+
+}
+
+#record:hover, #venmo:hover, #paypal:hover {
+    padding: 10px;
+    cursor: pointer;
+}

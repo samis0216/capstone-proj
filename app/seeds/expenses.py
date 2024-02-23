@@ -8,6 +8,8 @@ def seed_expenses():
     skitrip = Expense(category='Entertainment', description='Ski Lift Tickets', payer_id=1, group_id=1, amount=361)
     skitrip2 = Expense(category='Food', description="Denny's", payer_id=1, group_id=1, amount=62)
     skitrip3 = Expense(category='Living Expenses', description="AirBnB Payment", payer_id=1, group_id=1, amount=120)
+    skitrip4 = Expense(category='Other', description="Ski Insurance", payer_id=2, group_id=1, amount=180)
+    skitrip5 = Expense(category='Entertainment', description="Resort Movie Night", payer_id=2, group_id=1, amount=45)
     hawaii = Expense(category='Food', description="Seafood dinner", payer_id=2, group_id=2, amount=122)
     hawaii2 = Expense(category='Entertainment', description="Surf lessons", payer_id=2, group_id=2, amount=210)
     hawaii3 = Expense(category='Living Expenses', description="Hotel", payer_id=2, group_id=2, amount=326)
@@ -24,6 +26,8 @@ def seed_expenses():
     db.session.add(gamblers)
     db.session.add(gamblers2)
     db.session.add(gamblers3)
+    db.session.add(skitrip4)
+    db.session.add(skitrip5)
     db.session.commit()
 
 
