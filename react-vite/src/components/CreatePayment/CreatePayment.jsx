@@ -13,7 +13,6 @@ export default function CreatePayment() {
     const navigate = useNavigate()
     const details = Object.values(useSelector(state => state.expenseDetails))
     const expenses = useSelector(state => state.expenses)
-    console.log(user)
 
     useEffect(() => {
         dispatch(loadUserExpenseDetailsThunk(user.id))

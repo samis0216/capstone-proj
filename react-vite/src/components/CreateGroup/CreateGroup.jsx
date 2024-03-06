@@ -19,8 +19,6 @@ export default function CreateGroup() {
     const [member3, setMember3] = useState({})
     const user = useSelector(state => state.session.user)
 
-    console.log(awsLoading, submitted)
-
     useEffect(()=> {
         const newErrors = {}
         if (!name) {
@@ -79,7 +77,6 @@ export default function CreateGroup() {
                     <img src="https://cdn-icons-png.flaticon.com/512/3372/3372849.png" alt="" style={{ width: 200 }} />
                     <input type="file" accept="image/*" onChange={(e) => {
                                 setImageURL(e.target.files[0])
-                                console.log(e.target.files[0])
                                 }
                             }/>
                     {submitted && errors.imageUrl && <p>{errors.imageUrl}</p>}

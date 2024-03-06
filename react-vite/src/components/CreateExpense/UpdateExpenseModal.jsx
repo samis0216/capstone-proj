@@ -20,7 +20,6 @@ function UpdateExpenseModal({expense, userId}) {
     const { closeModal } = useModal();
     const userGroups = Object.values(useSelector(state => state.groups))
     // const group = useSelector(state =>state.groups[groupId])
-    console.log(groupId)
 
     useEffect(()=> {
         dispatch(loadUserGroupsThunk(userId))

@@ -14,8 +14,7 @@ export default function Dashboard() {
     const user = useSelector(state => state.session.user)
     const groups = Object.values(useSelector(state => state.groups))
     const expenses = Object.values(useSelector(state => state.expenses))
-    const [option, setOption] = useState('expenses')
-    console.log(option)
+    // const [option, setOption] = useState('expenses')
 
     useEffect(() => {
         dispatch(loadUserGroupsThunk(user.id))

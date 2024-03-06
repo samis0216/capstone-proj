@@ -59,7 +59,6 @@ export default function UpdateGroup({ group, user }) {
                             Image
                             <input type="file" accept="image/*" onChange={(e) => {
                                 setImageURL(e.target.files[0])
-                                console.log(e.target.files[0])
                             }
                             } />
                         </label>
