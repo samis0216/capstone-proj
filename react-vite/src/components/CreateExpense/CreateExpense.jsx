@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { useModal } from "../../context/Modal";
-import { createUserExpenseThunk } from "../../redux/expenses";
+// import { createUserExpenseThunk } from "../../redux/expenses";
 import { loadUserGroupsThunk } from "../../redux/groups";
 import { useNavigate } from "react-router-dom";
 // import { loadUserGroupsThunk } from "../../redux/groups";
 import './CreateExpense.css'
-import { createDetailsThunk } from "../../redux/expense_details";
+// import { createDetailsThunk } from "../../redux/expense_details";
 
 function CreateExpense() {
     const dispatch = useDispatch();

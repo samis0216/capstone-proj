@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { NavLink, useNavigate } from "react-router-dom"
 import { loadUserGroupsThunk } from "../../redux/groups"
@@ -32,7 +32,7 @@ export default function Dashboard() {
                         <NavLink style={{ color: '#666666', textDecoration: 'none' }} to='/dashboard'>Dashboard</NavLink>
                         {/* <NavLink style={{ color: '#666666', textDecoration: 'none' }} to='/activity'>Recent activity</NavLink> */}
                         <div className="left-bar-content">
-                            <p to='/expenses/all' onClick={() => setOption('expenses')} style={{ color: '#666666', textDecoration: 'none' }}>All expenses</p>
+                            {/* <p to='/expenses/all' onClick={() => setOption('expenses')} style={{ color: '#666666', textDecoration: 'none' }}>All expenses</p> */}
                             {/* <NavLink to='/expenses/new'>Create Expense</NavLink> */}
                         </div>
                     </div>

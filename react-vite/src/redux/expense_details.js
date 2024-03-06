@@ -86,6 +86,7 @@ const expenseDetailsReducer = (state=initialState, action) => {
             action.details.forEach(detail => {
                 newState[detail.id] = detail
             })
+            return newState
         }
         default:
             return state
