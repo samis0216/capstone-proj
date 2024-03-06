@@ -44,11 +44,12 @@ def oneGroup(id, groupId):
 @user_routes.route('/<int:id>/groups', methods=['POST'])
 def createGroup(id):
     form = GroupForm()
-    form.group_pic_url.data.filename = get_unique_filename_img(form.group_pic_url.data.filename)
     form['csrf_token'].data = request.cookies['csrf_token']
     print(form.data)
     if form.validate_on_submit():
         data = form.data
+        form.group_pic_url.data.filename = get_unique_filename_img(form.group_pic_url.data.filename)
+        print(form.group_pic_url.data)
         newGroup = Group(
             name=data['name'],
             organizer_id=id,
