@@ -1,6 +1,7 @@
 const LOAD_EXPENSE_DETAILS = 'groups/loadExpenseDetails'
 // const LOAD_ONE_EXPENSE_DETAIL = 'groups/loadOneExpenseDetail'
 const DELETE_DETAIL = 'details/deleteDetail'
+const CREATE_DETAILS = 'details/createDetails'
 
 const loadUserExpenseDetails = (expenseDetails) => {
     return {
@@ -16,6 +17,13 @@ const loadUserExpenseDetails = (expenseDetails) => {
 //     }
 // }
 
+const createDetails = (details)  => {
+    return {
+        type: CREATE_DETAILS,
+        details
+    }
+}
+
 const deleteDetail = (id) => {
     return {
         type: DELETE_DETAIL,
@@ -29,6 +37,18 @@ export const loadUserExpenseDetailsThunk = (userId) => async(dispatch) => {
     if (res.ok) {
         const data = await res.json()
         dispatch(loadUserExpenseDetails(data))
+        return data
+    }
+}
+
+export const createDetailsThunk = (expenseId, userId, groupId) => async(dispatch) => {
+    const res = await fetch(`/api/groups/${groupId}/expenses/${expenseId}`, {
+        body: userId
+    })
+
+    if (res.ok) {
+        const data = await res.json()
+        dispatch(createDetails(data))
         return data
     }
 }
@@ -60,6 +80,12 @@ const expenseDetailsReducer = (state=initialState, action) => {
             const newState = {...state}
             delete newState[action.id]
             return newState
+        }
+        case CREATE_DETAILS: {
+            const newState = {}
+            action.details.forEach(detail => {
+                newState[detail.id] = detail
+            })
         }
         default:
             return state

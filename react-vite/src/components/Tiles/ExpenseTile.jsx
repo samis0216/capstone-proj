@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom"
 
 export function ExpenseTile({ expense }) {
     const group = useSelector((state) => state.groups[expense.group_id])
-    console.log(group)
     const navigate = useNavigate()
     return (
         <div className="expense-tile" onClick={() => navigate(`/expenses/${expense.id}`)}>

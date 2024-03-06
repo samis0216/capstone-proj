@@ -18,9 +18,6 @@ export default function ExpenseDetails() {
     const group = useSelector(state => state.groups[expense?.group_id])
     // const details = Object.values(useSelector(state=> state.expenseDetails))
 
-
-    // console.log(details)
-
     useEffect(() => {
         dispatch(loadOneExpenseThunk(expenseId))
         dispatch(loadUserGroupsThunk(user.id))
