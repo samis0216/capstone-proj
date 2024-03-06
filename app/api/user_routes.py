@@ -50,10 +50,12 @@ def createGroup(id):
         data = form.data
         form.group_pic_url.data.filename = get_unique_filename_img(form.group_pic_url.data.filename)
         print(form.group_pic_url.data)
+        img_url = upload_img_to_s3(form.group_pic_url.data).get("url")
+        print('url:', img_url)
         newGroup = Group(
             name=data['name'],
             organizer_id=id,
-            group_pic_url=upload_img_to_s3(form.group_pic_url.data).get("url")
+            group_pic_url=img_url
             # group_pic_url = "https://cdn.pixabay.com/photo/2020/05/29/13/26/icons-5235125_1280.png"
         )
         print(newGroup)
