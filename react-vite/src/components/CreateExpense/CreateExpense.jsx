@@ -6,7 +6,7 @@ import { loadUserGroupsThunk } from "../../redux/groups";
 import { useNavigate } from "react-router-dom";
 // import { loadUserGroupsThunk } from "../../redux/groups";
 import './CreateExpense.css'
-// import { createDetailsThunk } from "../../redux/expense_details";
+import { createDetailsThunk } from "../../redux/expense_details";
 import {createUserExpenseThunk} from "../../redux/expenses"
 
 function CreateExpense() {
@@ -62,7 +62,7 @@ function CreateExpense() {
             form.append('group_id', groupId)
 
             dispatch(createUserExpenseThunk(user.id, form))
-            // dispatch(createDetailsThunk(expense.id, user.id, groupId))
+            dispatch(createDetailsThunk(expense.id, user.id, groupId))
             navigate('/dashboard')
         }
 
