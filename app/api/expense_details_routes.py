@@ -28,12 +28,15 @@ def deleteDetail(id, userId):
 
 @expense_details_routes.route('/new/<int:userId>/<int:expenseId>', methods=['POST'])
 def createDetail(userId, expenseId):
+    expense = Expense.query.get(expenseId)
     detail = ExpenseDetail(
         expense_id = expenseId,
         contributor_id = userId,
-        amount = 100,
+        amount = expense,
         settled = False
     )
+    db.session.add(detail)
+    db.session.commit()
     return {
         'detail': detail
     }
