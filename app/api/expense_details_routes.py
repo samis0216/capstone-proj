@@ -25,3 +25,11 @@ def deleteDetail(id, userId):
     return {
         'id': id
     }
+
+@expense_details_routes.route('/new/<int:userId>', methods=['POST'])
+def createDetail(userId):
+    detail = ExpenseDetail(
+    )
+    return {
+        'detail': detail
+    }
