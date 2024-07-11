@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { useModal } from "../../context/Modal";
-// import { createUserExpenseThunk } from "../../redux/expenses";
+import { createUserExpenseThunk } from "../../redux/expenses";
 import { loadUserGroupsThunk } from "../../redux/groups";
 import { useNavigate } from "react-router-dom";
 // import { loadUserGroupsThunk } from "../../redux/groups";
@@ -60,7 +60,6 @@ function CreateExpense() {
             form.append('amount', amount)
             form.append('payer_id', user.id)
             form.append('group_id', groupId)
-
             dispatch(createUserExpenseThunk(user.id, form))
             dispatch(createDetailsThunk(expense.id, user.id, groupId))
             navigate('/dashboard')
