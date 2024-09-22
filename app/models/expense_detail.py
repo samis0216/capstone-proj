@@ -8,7 +8,7 @@ class ExpenseDetail(db.Model):
     id= db.Column(db.Integer, primary_key=True)
     expense_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('expenses.id')), nullable=False)
     contributer_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('group_members.id')), nullable=False)
-    amount = db.Column(db.Float, nullable=False)
+    amount = db.Column(db.Float, nullable=False, default=0)
     settled = db.Column(db.Boolean, nullable=False, default=False)
 
     def to_dict(self):
