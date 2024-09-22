@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { loadOneExpenseThunk, updateExpenseThunk } from "../../redux/expenses";
 import { loadUserGroupsThunk } from "../../redux/groups";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import './UpdateExpense.css'
 
 
 function UpdateExpenseModal({expense, userId}) {
     const dispatch = useDispatch();
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
 
     const [category, setCategory] = useState(expense.category);
     const [description, setDescription] = useState(expense.description);
@@ -19,7 +19,7 @@ function UpdateExpenseModal({expense, userId}) {
     const [submitted, setSubmitted] = useState(false)
     const { closeModal } = useModal();
     const userGroups = Object.values(useSelector(state => state.groups))
-    // const group = useSelector(state =>state.groups[groupId])
+    const group = useSelector(state =>state.groups[groupId])
 
     useEffect(()=> {
         dispatch(loadUserGroupsThunk(userId))
