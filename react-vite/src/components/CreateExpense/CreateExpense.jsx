@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { loadUserGroupsThunk } from "../../redux/groups";
 import './CreateExpense.css'
 import { createDetailsThunk } from "../../redux/expense_details";
-import {createUserExpenseThunk} from "../../redux/expenses"
+import { createUserExpenseThunk } from "../../redux/expenses"
 
 function CreateExpense() {
     const dispatch = useDispatch();
@@ -128,6 +128,16 @@ function CreateExpense() {
                 </div>
                 <button className='submitCreateExpense' onClick={(e) => handleSubmit(e)}>Create Expense</button>
             </form>
+            <div>
+                <label htmlFor="expense-select">Select an expense:</label>
+                <select id="expense-select">
+                    {expenses.map((expense, index) => (
+                        <option key={index} value={expense}>
+                            {expense}
+                        </option>
+                    ))}
+                </select>
+            </div>
         </div>
     );
 }
