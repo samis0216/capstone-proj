@@ -128,7 +128,7 @@ function CreateExpense() {
                 </div>
                 <button className='submitCreateExpense' onClick={(e) => handleSubmit(e)}>Create Expense</button>
             </form>
-            <div>
+            {/* <div>
                 <label htmlFor="expense-select">Select an expense:</label>
                 <select id="expense-select">
                     {expenses.map((expense, index) => (
@@ -147,7 +147,7 @@ function CreateExpense() {
                         </option>
                     ))}
                 </select>
-            </div>
+            </div> */}
         </div>
     );
 }
