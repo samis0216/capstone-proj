@@ -39,7 +39,7 @@ export default function GroupDetails() {
         <div className="groupDetailsPage">
             <div className="groupDetailsContainer">
                 <div className="groupDetails">
-                    <img src={group.group_pic_url} alt="group_image" className="groupPics" />
+                    <img onClick={()=> navigate(`/groups/${groupId}`)}src={group.group_pic_url} alt="group_image" className="groupPics" />
                     <h1>{group.name}</h1>
                     <div className="buttonsContainer">
                         <OpenModalButton modalComponent={<UpdateGroup group={group} user={user} />} buttonText={'Update'} buttonStyle={'updateButton'}/>
