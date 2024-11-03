@@ -1,7 +1,9 @@
 import './LandingPage.css'
 import OpenModalButton from '../OpenModalButton/OpenModalButton'
 import SignupFormModal from '../SignupFormModal'
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+
+const navigate = useNavigate()
 
 export default function LandingPage() {
     return (
@@ -9,7 +11,7 @@ export default function LandingPage() {
             <div className="firstBlock">
                 <div className="leftContent">
                     <div className="middleContent">
-                        <h1 style={{width: 367, fontSize: 40}}>Less stress when sharing expenses.</h1>
+                        <h1 onClick={()=> navigate('/')}style={{width: 367, fontSize: 40}}>Less stress when sharing expenses.</h1>
                         <div className="iconsDiv">
                             <i className="fa-solid fa-plane-departure"></i>
                             <i className="fa-solid fa-house fa-flip-horizontal" style={{ color: "#B197FC" }}></i>
@@ -22,7 +24,7 @@ export default function LandingPage() {
                     </div>
                     <OpenModalButton modalComponent={<SignupFormModal />} buttonText={'Sign Up'} buttonStyle={'signUpButtonLarge'}/>
                     <div>
-                        <p>Free for <i className="fa-brands fa-apple"></i> iPhone, <i className="fa-brands fa-android"></i> Android, and web.</p>
+                        <p>Free for <i onClick={()=> navigate('/appstore')}className="fa-brands fa-apple"></i> iPhone, <i className="fa-brands fa-android"></i> Android, and web.</p>
                     </div>
                 </div>
                 <div className='imgContainer'>
