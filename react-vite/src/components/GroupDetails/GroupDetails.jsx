@@ -49,9 +49,9 @@ export default function GroupDetails() {
                 <div className="expensesMembersContainer">
                     <div className="groupExpensesContainer">
                         <h3 className="membersContainer" style={{borderBottom: '1px solid #DDDDDD'}}>Expenses</h3>
-                        {expenses.map(expense => (
+                        {/* {expenses.map(expense => (
                             <ExpenseTile key={expense.id} expense={expense} />
-                        ))}
+                        ))} */}
                     </div>
                     <div className='membersContainer' style={{borderLeft: 1, }}>
                         <h3 style={{borderBottom: '1px solid #DDDDDD'}}>Members</h3>
