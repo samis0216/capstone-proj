@@ -99,3 +99,48 @@ def download_song(event=None):  # Add 'event' parameter for key binding
     # Clear previous output and run the command in a separate thread
     output_text.delete(1.0, tk.END)
     threading.Thread(target=run_command).start()
+
+# Create GUI window
+root = tk.Tk()
+root.title("SoundCloud Downloader")
+root.configure(bg=BG_COLOR)
+
+# Center the window on the screen
+root.update_idletasks()
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+window_width = 600
+window_height = 400
+x_cordinate = (screen_width // 2) - (window_width // 2)
+y_cordinate = (screen_height // 2) - (window_height // 2)
+root.geometry(f"{window_width}x{window_height}+{x_cordinate}+{y_cordinate}")
+
+# Create input field and button
+tk.Label(root, text="Enter SoundCloud URL:", bg=BG_COLOR, fg=TEXT_COLOR, font=("Arial", 16)).pack(pady=5)
+entry = tk.Entry(root, width=60, font="Arial", insertbackground=TEXT_COLOR, relief="flat")
+entry.pack(pady=5)
+entry.bind("<Return>", download_song)  # Bind the "Enter" key to the download function
+
+# Create radio buttons for download options
+download_option = tk.StringVar(value="single")
+tk.Radiobutton(root, text="Single Song", variable=download_option, value="single", bg=BG_COLOR, fg=TEXT_COLOR, selectcolor=ENTRY_COLOR).pack(pady=2)
+tk.Radiobutton(root, text="Playlist", variable=download_option, value="playlist", bg=BG_COLOR, fg=TEXT_COLOR, selectcolor=ENTRY_COLOR).pack(pady=2)
+
+# Standard button styled to blend in with the background
+download_button = tk.Button(
+    root, text="Download", command=download_song,
+    relief="flat", highlightthickness=0, borderwidth=0, activebackground=ENTRY_COLOR
+)
+download_button.pack(pady=5)
+
+# Create a text widget to display command output (without a scrollbar)
+output_text = tk.Text(root, height=12, width=70, bg=BG_COLOR, fg=TEXT_COLOR, insertbackground=TEXT_COLOR, relief="flat", wrap="word")
+output_text.pack(padx=5, pady=5)
+
+# Configure tags for colorful text output
+output_text.tag_configure("normal", foreground=TEXT_COLOR)
+output_text.tag_configure("error", foreground="#ff4d4d")  # Red for errors
+output_text.tag_configure("warning", foreground="#ffa500")  # Orange for warnings
+
+# Run the GUI event loop
+root.mainloop()
