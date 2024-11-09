@@ -62,3 +62,40 @@ def download_song(event=None):  # Add 'event' parameter for key binding
             "--embed-thumbnail",
             url
         ]
+
+    def run_command():
+        try:
+            process = subprocess.Popen(
+                command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True
+            )
+            for line in process.stdout:
+                # Apply color tags based on the content of the line
+                if "ERROR" in line or "error" in line:
+                    output_text.insert(tk.END, line, "error")
+                elif "WARNING" in line or "warning" in line:
+                    output_text.insert(tk.END, line, "warning")
+                else:
+                    output_text.insert(tk.END, line, "normal")
+                output_text.see(tk.END)  # Scroll to the end to show the latest output
+            process.wait()
+
+            if process.returncode == 0:
+                root.after(0, lambda: on_download_complete(success=True))
+            else:
+                root.after(0, lambda: on_download_complete(success=False))
+        except Exception as e:
+            root.after(0, lambda: messagebox.showerror("Error", f"An unexpected error occurred: {e}"))
+
+    def on_download_complete(success):
+        if success:
+            messagebox.showinfo("Success", "Download complete!")
+            entry.delete(0, tk.END)  # Clear the input field
+        else:
+            messagebox.showerror("Error", "Download failed. Please check the URL and try again.")
+
+        # Clear the output text after download completes
+        output_text.delete(1.0, tk.END)
+
+    # Clear previous output and run the command in a separate thread
+    output_text.delete(1.0, tk.END)
+    threading.Thread(target=run_command).start()
