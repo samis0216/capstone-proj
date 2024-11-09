@@ -21,3 +21,44 @@ URL_PATTERN = re.compile(
     r'(\/[-A-Z0-9+&@#\/%=~_|$?!:.,]*)?'  # resource path
     r'(\?[A-Z0-9+&@#\/%=~_|$?!:.,]*)?$', re.IGNORECASE
 )
+
+def download_song(event=None):  # Add 'event' parameter for key binding
+    url = entry.get().strip()
+    if not url:
+        messagebox.showwarning("Input Error", "Please enter a URL.")
+        return
+
+    if not re.match(URL_PATTERN, url):
+        messagebox.showwarning("Input Error", "Please enter a valid URL.")
+        return
+
+    # Specify the path to the Downloads folder
+    downloads_folder = os.path.expanduser("~/Downloads")
+    output_template = os.path.join(downloads_folder, "%(title)s - %(uploader)s.%(ext)s")
+
+    # Determine the download type based on the selected option
+    if download_option.get() == "single":
+        # Command for downloading a single song
+        command = [
+            "yt-dlp",
+            "--extract-audio",
+            "--audio-format", "mp3",
+            "--audio-quality", "320K",
+            "--output", output_template,
+            "--embed-metadata",
+            "--embed-thumbnail",
+            url
+        ]
+    elif download_option.get() == "playlist":
+        # Command for downloading a playlist
+        command = [
+            "yt-dlp",
+            "--yes-playlist",  # Ensures that entire playlists are downloaded
+            "--extract-audio",
+            "--audio-format", "mp3",
+            "--audio-quality", "320K",
+            "--output", output_template,
+            "--embed-metadata",
+            "--embed-thumbnail",
+            url
+        ]
