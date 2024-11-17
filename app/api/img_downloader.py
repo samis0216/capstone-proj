@@ -20,3 +20,6 @@ def download_picture():
 
     except requests.exceptions.RequestException as e:
         print(f"Error: Unable to download the picture. Details: {e}")
+
+if __name__ == "__main__":
+    download_picture()
