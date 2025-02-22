@@ -15,5 +15,16 @@ export default function TodoList() {
         }
     };
 
+    const toggleComplete = (index) => {
+        setTasks(
+            tasks.map((t, i) => (i === index ? { ...t, completed: !t.completed } : t))
+        );
+    };
+
+    const deleteTask = (index) => {
+        setTasks(tasks.filter((_, i) => i !== index));
+    };
+
+
     return
 }
